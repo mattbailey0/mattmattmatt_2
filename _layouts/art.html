@@ -1,0 +1,45 @@
+---
+layout: default
+---
+
+<div class="home">
+  {%- if page.title -%}
+    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+
+  {%- if site.posts.size > 0 -%}
+
+
+<div style="display:inline-grid;grid-template-columns:repeat(3,1fr);grid-gap:30px;padding-top:5px;">
+  {%- for post in site.posts -%}
+ {%- if post.categories contains "music" or post.categories contains "art" -%}
+    <div style=" ">
+    
+     
+      {%- if post.img -%}
+        <img src="/assets/img/{{post.img}}" class="art-img-tile" />
+      {%- endif -%}
+      <!-- {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        <span class="post-meta">{{ post.date | date: date_format }}</span>-->
+   <h2>
+        <a class="post-link" href="{{ post.url | relative_url }}">
+          {%- if post.categories contains "music" -%}
+          ♩ 
+          {%- endif -%}
+          {{ post.title | escape }}
+        </a>
+      </h2>
+      {{ post.content | truncatewords:20 }}
+      
+    </div>
+  {%- endif -%}
+  {%- endfor -%}
+
+
+</div>
+
+
+  
+  {%- endif -%}
