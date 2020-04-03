@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Mouth Noises - Pollen Hoarder Honey Dance"
+title:  "Music - Pollen Hoarder Honey Dance"
 date:   2020-03-04 15:17:22 -0500
 categories: music
 img: music/pollen-hoarder-honey-dance/pollen-hoarder-honey-dance-cover.jpg

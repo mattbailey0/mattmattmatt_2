@@ -21,6 +21,13 @@ layout: default
     {%- endif -%}
     {{ content }}
     
+    {%- if page.gallery -%}
+      {%- for image in page.gallery -%}
+        <div class="post-img-full">
+          <img src="/assets/img/{{image}}"/>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
 
   </div>
 

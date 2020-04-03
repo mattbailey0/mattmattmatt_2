@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Mouth Noises - Midwinter Bulbsprout"
+title:  "Music - Midwinter Bulbsprout"
 date:   2020-03-05 15:17:22 -0500
 categories: music
 img: music/midwinter-bulbsprout/version.jpg

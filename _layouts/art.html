@@ -25,8 +25,11 @@ layout: default
         <span class="post-meta">{{ post.date | date: date_format }}</span>-->
    <h2>
         <a class="post-link" href="{{ post.url | relative_url }}">
+          {%- if post.categories contains "art" -%}
+          ಠ_ಠ&nbsp;
+          {%- endif -%}
           {%- if post.categories contains "music" -%}
-          ♩ 
+          ♩&nbsp;
           {%- endif -%}
           {{ post.title | escape }}
         </a>

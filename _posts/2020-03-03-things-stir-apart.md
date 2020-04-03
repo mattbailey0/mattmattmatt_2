@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Mouth Noises - Things Stir Apart"
+title:  "Music - Things Stir Apart"
 date:   2020-03-03 15:17:22 -0500
 categories: music
 img: music/things-stir-apart/things-stir-apart-cover.jpg
