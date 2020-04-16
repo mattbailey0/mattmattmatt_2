@@ -237,10 +237,14 @@
   padding: 0 3% 3% 0;
 }
 
+.post-img-hero {
+  max-width:66%;
+  margin-bottom: 1.5rem;
+}
+
 .post-img-tile {
   max-width:66%;
 }
-
 
 .post-content {
   margin-bottom: $spacing-unit;
