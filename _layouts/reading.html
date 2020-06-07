@@ -15,6 +15,43 @@ layout: default
 <div style="display:inline-grid;grid-template-columns:repeat(1,1fr);grid-gap:30px;padding-top:5px;">
 
 
+  {%- for b in site.data.reading -%}
+    <div style="" class="book-row">
+      <!-- {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        <span class="post-meta">{{ post.date | date: date_format }}</span>-->
+      <span class="book-cover">
+        {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
+        {%- if isbn -%}
+        {{isbn}}
+          <a href="https://bookshop.org/books?keywords={{ isbn }}">
+            <img src="http://covers.openlibrary.org/b/isbn/{{ isbn }}-M.jpg" />
+          </a>
+        {%- endif -%}
+      </span>
+      <span class="book-date">
+        {%- if b.DateRead -%}
+          {{ b.DateRead }}
+        {%- else -%}
+          {{ b.DateAdded }}
+        {%- endif -%}
+      </span>
+      <span class="book-title">{{ b.Title }}</span>
+      <span class="book-author">{{ b.Author }}</span>
+      <span class="book-rating">
+        {%- for r in (1..b.MyRating) -%}
+          &#10026;&nbsp;
+        {%- endfor -%}
+
+      </span>
+
+    </div>
+  {%- endfor -%}
+
+
+
+
+
+
   {%- for b in site.data.goodreads -%}
     <div style="" class="book-row">
       <!-- {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
@@ -42,8 +79,7 @@ layout: default
         {%- endfor -%}
 
       </span>
-      <!-- <span class="book-misc">Book Id,Title,Author,Author l-f,Additional Authors,ISBN,ISBN13,My Rating,Average Rating,Publisher,Binding,Number of Pages,Year Published,Original Publication Year,Date Read,Date Added,Bookshelves,Bookshelves with positions,Exclusive Shelf,My Review,Spoiler,Private Notes,Read Count,Recommended For,Recommended By,Owned Copies,Original Purchase Date,Original Purchase Location,Condition,Condition Description,BCID</span>-->
-      <!-- <span class="book-review">{{ post.content | truncatewords:20 }}</span>-->
+
     </div>
   {%- endfor -%}
 
