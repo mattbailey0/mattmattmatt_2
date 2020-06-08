@@ -22,10 +22,7 @@ layout: default
       <span class="book-cover">
         {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
         {%- if isbn -%}
-        {{isbn}}
-          <a href="https://bookshop.org/books?keywords={{ isbn }}">
-            <img src="http://covers.openlibrary.org/b/isbn/{{ isbn }}-M.jpg" />
-          </a>
+          <img src="http://covers.openlibrary.org/b/isbn/{{ isbn }}-M.jpg" />
         {%- endif -%}
       </span>
       <span class="book-date">
@@ -35,7 +32,15 @@ layout: default
           {{ b.DateAdded }}
         {%- endif -%}
       </span>
-      <span class="book-title">{{ b.Title }}</span>
+      <span class="book-title">
+        {%- if isbn -%}
+          <a href="https://bookshop.org/books?keywords={{ isbn }}">
+        {%- endif -%}
+        {{ b.Title }}
+        {%- if isbn -%}
+          </a>
+        {%- endif -%}
+      </span>
       <span class="book-author">{{ b.Author }}</span>
       <span class="book-rating">
         {%- for r in (1..b.MyRating) -%}
@@ -46,11 +51,6 @@ layout: default
 
     </div>
   {%- endfor -%}
-
-
-
-
-
 
   {%- for b in site.data.goodreads -%}
     <div style="" class="book-row">
@@ -71,7 +71,15 @@ layout: default
           {{ b.DateAdded }}
         {%- endif -%}
       </span>
-      <span class="book-title">{{ b.Title }}</span>
+      <span class="book-title">
+        {%- if isbn -%}
+          <a href="https://bookshop.org/books?keywords={{ isbn }}">
+        {%- endif -%}
+        {{ b.Title }}
+        {%- if isbn -%}
+          </a>
+        {%- endif -%}
+      </span>
       <span class="book-author">{{ b.Author }}</span>
       <span class="book-rating">
         {%- for r in (1..b.MyRating) -%}
