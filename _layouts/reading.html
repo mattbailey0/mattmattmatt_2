@@ -22,7 +22,7 @@ layout: default
       <span class="book-cover">
         {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
         {%- if isbn -%}
-          <img src="http://covers.openlibrary.org/b/isbn/{{ isbn }}-M.jpg" />
+          <img src="http://covers.openlibrary.org/b/isbn/{{ isbn | escape }}-M.jpg" />
         {%- endif -%}
       </span>
       <span class="book-date">
@@ -34,7 +34,7 @@ layout: default
       </span>
       <span class="book-title">
         {%- if isbn -%}
-          <a href="https://bookshop.org/books?keywords={{ isbn }}">
+          <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
         {%- endif -%}
         {{ b.Title }}
         {%- if isbn -%}
@@ -62,8 +62,8 @@ layout: default
       <span class="book-cover">
         {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
         {%- if isbn -%}
-          <a href="https://bookshop.org/books?keywords={{ isbn }}">
-            <img src="http://covers.openlibrary.org/b/isbn/{{ isbn }}-M.jpg" />
+          <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
+            <img src="http://covers.openlibrary.org/b/isbn/{{ isbn | escape }}-M.jpg" />
           </a>
         {%- endif -%}
       </span>
@@ -76,7 +76,7 @@ layout: default
       </span>
       <span class="book-title">
         {%- if isbn -%}
-          <a href="https://bookshop.org/books?keywords={{ isbn }}">
+          <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
         {%- endif -%}
         {{ b.Title }}
         {%- if isbn -%}
