@@ -19,6 +19,10 @@ layout: default
     {%- if page.img -%}
       <div class="post-img-full"><img src="/assets/img/{{page.img}}" class="post-img" /></div>
     {%- endif -%}
+    {%- if page.isbn13 -%}
+      <div class="post-img-full"><img src="http://covers.openlibrary.org/b/isbn/{{ page.isbn13 }}-L.jpg" class="post-img" /></div>
+    {%- endif -%}
+
     {{ content }}
     
     {%- if page.gallery -%}

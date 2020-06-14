@@ -46,7 +46,10 @@ layout: default
         {%- for r in (1..b.MyRating) -%}
           &#10026;&nbsp;
         {%- endfor -%}
-
+        <br/>
+        {%- if b.MyReview -%}
+          <a href="{{ b.MyReview }}">review &gt;&gt;</a>
+        {%- endif -%}
       </span>
 
     </div>

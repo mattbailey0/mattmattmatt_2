@@ -34,6 +34,9 @@ layout: default
         {%- if post.img -%}
           <img src="/assets/img/{{post.img}}" class="post-img-hero" />
         {%- endif -%}
+        {%- if post.isbn13 -%}
+          <img src="http://covers.openlibrary.org/b/isbn/{{ post.isbn13 }}-M.jpg" class="post-img-hero" />
+        {%- endif -%}
         <span>
           {{ post.content | truncatewords:50 }} 
           <br/><a href="{{ post.url | relative_url }}">more &gt;&gt;</a>
