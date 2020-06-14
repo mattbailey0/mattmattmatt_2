@@ -19,9 +19,17 @@ layout: default
     {%- if page.img -%}
       <div class="post-img-full"><img src="/assets/img/{{page.img}}" class="post-img" /></div>
     {%- endif -%}
-    {%- if page.isbn13 -%}
-      <div class="post-img-full"><img src="http://covers.openlibrary.org/b/isbn/{{ page.isbn13 }}-L.jpg" class="post-img" /></div>
+
+    {%- if page.categories contains "reading" -%}
+      {%- assign book = site.data.reading | where: "ISBN13", page.isbn13 | first -%}
+        <div class="post-img-full"><img src="http://covers.openlibrary.org/b/isbn/{{ book.ISBN13 }}-L.jpg" class="post-img" /></div>
+        <div class="post-reading-details">
+          <a href= "https://bookshop.org/books?keywords={{ book.ISBN13 }}"">{{ book.Title }}</a>
+          <br/>
+          {{ book.Author }}
+        </div>
     {%- endif -%}
+
 
     {{ content }}
     

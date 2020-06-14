@@ -246,6 +246,12 @@
   max-width:66%;
 }
 
+
+.post-reading-details {
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
 .post-content {
   margin-bottom: $spacing-unit;
 
@@ -277,6 +283,7 @@
 /**
  * Reading List
  */
+
 
  .book-row {
     display:inline-grid;
