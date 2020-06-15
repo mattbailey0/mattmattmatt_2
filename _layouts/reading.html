@@ -56,42 +56,43 @@ layout: default
   {%- endfor -%}
 
   {%- for b in site.data.goodreads -%}
-    <div style="" class="book-row">
-      <!-- {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>-->
-      <span class="book-cover">
-        {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
-        {%- if isbn -%}
-          <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
-            <img src="http://covers.openlibrary.org/b/isbn/{{ isbn | escape }}-M.jpg" />
-          </a>
-        {%- endif -%}
-      </span>
-      <span class="book-date">
-        {%- if b.DateRead -%}
-          {{ b.DateRead }}
-        {%- else -%}
-          {{ b.DateAdded }}
-        {%- endif -%}
-      </span>
-      <span class="book-title">
-        {%- if isbn -%}
-          <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
-        {%- endif -%}
-        {{ b.Title }}
-        {%- if isbn -%}
-          </a>
-        {%- endif -%}
-      </span>
-      <span class="book-author">{{ b.Author }}</span>
-      <span class="book-rating">
-        {%- for r in (1..b.MyRating) -%}
-          &#10026;&nbsp;
-        {%- endfor -%}
+    {%- if b.ExclusiveShelf == "read" -%}
+      <div style="" class="book-row">
+        <!-- {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+          <span class="post-meta">{{ post.date | date: date_format }}</span>-->
+        <span class="book-cover">
+          {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
+          {%- if isbn -%}
+            <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
+              <img src="http://covers.openlibrary.org/b/isbn/{{ isbn | escape }}-M.jpg" />
+            </a>
+          {%- endif -%}
+        </span>
+        <span class="book-date">
+          {%- if b.DateRead -%}
+            {{ b.DateRead }}
+          {%- else -%}
+            {{ b.DateAdded }}
+          {%- endif -%}
+        </span>
+        <span class="book-title">
+          {%- if isbn -%}
+            <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
+          {%- endif -%}
+          {{ b.Title }}
+          {%- if isbn -%}
+            </a>
+          {%- endif -%}
+        </span>
+        <span class="book-author">{{ b.Author }}</span>
+        <span class="book-rating">
+          {%- for r in (1..b.MyRating) -%}
+            &#10026;&nbsp;
+          {%- endfor -%}
 
-      </span>
-
-    </div>
+        </span>
+      </div>
+    {%- endif -%}
   {%- endfor -%}
 
 </div>
