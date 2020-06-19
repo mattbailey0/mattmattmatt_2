@@ -40,15 +40,23 @@ layout: default
         {%- if isbn -%}
           </a>
         {%- endif -%}
+
+        {%- if b.Author -%}
+          <br/>
+          {{ b.Author }}
+          {%- if b.AdditionalAuthors -%}
+            <br/>
+            {{ b.AdditionalAuthors }}
+          {%- endif -%}
+        {%- endif -%}
       </span>
-      <span class="book-author">{{ b.Author }}</span>
       <span class="book-rating">
         {%- for r in (1..b.MyRating) -%}
           &#10026;&nbsp;
         {%- endfor -%}
-        <br/>
-        {%- if b.MyReview -%}
-          <a href="{{ b.MyReview }}">review &gt;&gt;</a>
+        {%- if b.ReviewPath -%}
+          <br/>
+          <a href="{{ b.ReviewPath }}">review &gt;&gt;</a>
         {%- endif -%}
       </span>
 
@@ -83,15 +91,27 @@ layout: default
           {%- if isbn -%}
             </a>
           {%- endif -%}
+          
+          {%- if b.Author -%}
+            <br/>
+            {{ b.Author }}
+            {%- if b.AdditionalAuthors -%}
+              <br/>
+              {{ b.AdditionalAuthors }}
+            {%- endif -%}
+          {%- endif -%}
         </span>
-        <span class="book-author">{{ b.Author }}</span>
         <span class="book-rating">
           {%- for r in (1..b.MyRating) -%}
             &#10026;&nbsp;
           {%- endfor -%}
-
+          {%- if b.MyReview -%}
+            <br/>
+            {{ b.MyReview }}
+          {%- endif -%}
         </span>
       </div>
+
     {%- endif -%}
   {%- endfor -%}
 
