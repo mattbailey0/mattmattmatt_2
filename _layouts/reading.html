@@ -95,6 +95,9 @@ layout: default
     {%- endif -%}
   {%- endfor -%}
 
+  {% assign count = site.data.reading.size | plus: site.data.goodreads.size %}  
+  Total: {{ count }}
+
 </div>
 
 
