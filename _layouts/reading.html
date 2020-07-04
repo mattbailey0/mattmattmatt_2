@@ -54,9 +54,12 @@ layout: default
         {%- for r in (1..b.MyRating) -%}
           &#10026;&nbsp;
         {%- endfor -%}
-        {%- if b.ReviewPath -%}
+        {% assign rpost = site.posts | where: "isbn13", isbn | first %}
+        {%- if rpost -%}
           <br/>
-          <a href="{{ b.ReviewPath }}">review &gt;&gt;</a>
+          {{ rpost.content | truncatewords: 50 }}
+          <br/>
+          <a href="{{ rpost.url }}">more &gt;&gt;</a>
         {%- endif -%}
       </span>
 

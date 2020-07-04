@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Reading - Learning to Die in the Anthropocene"
+title:  "Review - Learning to Die in the Anthropocene"
 date:   2020-06-29 12:00:00 -0500
 categories: reading
 isbn13: 9780872866690

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Reading - Critical Trauma Studies"
+title:  "Review - Critical Trauma Studies"
 date:   2020-06-13 12:00:00 -0500
 categories: reading
 isbn13: 9781479822515

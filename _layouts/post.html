@@ -27,9 +27,12 @@ layout: default
           <a href= "https://bookshop.org/books?keywords={{ book.ISBN13 }}"">{{ book.Title }}</a>
           <br/>
           {{ book.Author }}
+          <br/>
+          {%- for r in (1..book.MyRating) -%}
+            &#10026;&nbsp;
+          {%- endfor -%}
         </div>
     {%- endif -%}
-
 
     {{ content }}
     
