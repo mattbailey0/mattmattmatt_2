@@ -191,11 +191,13 @@
 .post-list {
   margin-left: 0;
   list-style: none;
-
   > li {
     margin-bottom: $spacing-unit;
     padding-bottom: $spacing-unit;
     border-bottom: 1px solid #e8e8e8;
+    > h3 {
+    font-size: 24px;
+    }
   }
 }
 
@@ -239,6 +241,11 @@
 
 .post-img-hero {
   max-width:66%;
+  margin-bottom: 1.5rem;
+}
+
+.post-img-hero-small {
+  max-width:33%;
   margin-bottom: 1.5rem;
 }
 
