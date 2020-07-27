@@ -20,6 +20,16 @@ layout: default
       <div class="post-img-full"><img src="/assets/img/{{page.img}}" class="post-img" /></div>
     {%- endif -%}
 
+    {%- if page.vid -%}
+      <div class="post-video-full">
+        <video controls >
+          <source src="/assets/video/{{page.vid}}" type="video/mp4">
+            Sorry, your browser doesn't support embedded videos.
+        </video>
+      </div>
+    {%- endif -%}
+
+
     {%- if page.categories contains "reading" -%}
       {%- assign book = site.data.reading | where: "ISBN13", page.isbn13 | first -%}
         <div class="post-img-full"><img src="http://covers.openlibrary.org/b/isbn/{{ book.ISBN13 }}-L.jpg" class="post-img" /></div>

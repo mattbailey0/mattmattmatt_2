@@ -42,6 +42,11 @@ layout: default
             <img src="/assets/img/{{post.img}}" class="post-img-hero" />
           {%- endif -%}
         {%- endif -%}
+
+        {%- if post.vid-preview -%}
+            <img src="/assets/video/{{post.vid-preview}}" class="post-img-hero" />
+        {%- endif -%}
+
         {%- if post.isbn13 -%}
           <img src="http://covers.openlibrary.org/b/isbn/{{ post.isbn13 }}-M.jpg" class="post-img-hero" />
         {%- endif -%}

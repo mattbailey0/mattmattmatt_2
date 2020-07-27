@@ -234,9 +234,13 @@
   max-height: 30rem;
 }
 
-.post-img-full {
+.post-img-full,
+.post-video-full {
   max-width: 100%;
   padding: 0 3% 3% 0;
+  > video {
+    height: 500px;
+  }
 }
 
 .post-img-hero {
