@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Music - Doomscrawler"
-date:   2020-07-28 15:17:22 -0500
+date:   2020-07-28 00:00:00 -0500
 categories: music
 img: music/doomscrawler/version_01a.jpg
 ---
