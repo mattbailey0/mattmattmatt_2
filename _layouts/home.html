@@ -13,10 +13,10 @@ layout: default
 
 
     <ul class="post-list">
-      
+
 
       {%- for post in site.posts -%}
-  
+
       <li>
         {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
         <span class="post-meta">{{ post.date | date: date_format }}</span>
@@ -48,26 +48,27 @@ layout: default
         {%- endif -%}
 
         {%- if post.isbn13 -%}
-          <img src="http://covers.openlibrary.org/b/isbn/{{ post.isbn13 }}-M.jpg" class="post-img-hero" />
+          <img src="/assets/img/book-covers/{{post.isbn13}}-M.jpg" class="post-img" />
+          <!--<img src="http://covers.openlibrary.org/b/isbn/{{ post.isbn13 }}-M.jpg" class="post-img-hero" />-->
         {%- endif -%}
         <span>
           {%- if post.categories contains "short" -%}
-            {{ post.content }} 
+            {{ post.content }}
             {%- if post.link -%}
-            <a href="{{ post.link }}">go check it out &gt;&gt;</a>  
-            {%- endif -%}            
+            <a href="{{ post.link }}">go check it out &gt;&gt;</a>
+            {%- endif -%}
           {%- else -%}
             {{ post.content | truncatewords:50 }}
-            <br/><br/><a href="{{ post.url | relative_url }}">more &gt;&gt;</a> 
+            <br/><br/><a href="{{ post.url | relative_url }}">more &gt;&gt;</a>
           {%- endif -%}
-         
+
         </span>
       </li>
 
       {%- endfor -%}
     </ul>
 
-   
+
   {%- endif -%}
 
 </div>

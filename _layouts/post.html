@@ -32,7 +32,10 @@ layout: default
 
     {%- if page.categories contains "reading" -%}
       {%- assign book = site.data.reading | where: "ISBN13", page.isbn13 | first -%}
-        <div class="post-img-full"><img src="http://covers.openlibrary.org/b/isbn/{{ book.ISBN13 }}-L.jpg" class="post-img" /></div>
+        <div class="post-img-full">
+          <img src="/assets/img/book-covers/{{book.ISBN13}}.jpg" class="post-img" />
+          <!--<img src="http://covers.openlibrary.org/b/isbn/{{ book.ISBN13 }}-L.jpg" class="post-img" />-->
+        </div>
         <div class="post-reading-details">
           <a href= "https://bookshop.org/books?keywords={{ book.ISBN13 }}"">{{ book.Title }}</a>
           <br/>
@@ -45,7 +48,7 @@ layout: default
     {%- endif -%}
 
     {{ content }}
-    
+
 <div class="PageNavigation">
   {% if page.previous.url %}
     <a class="prev" href="{{page.previous.url}}">| Previous |</a>
@@ -64,8 +67,8 @@ layout: default
       {%- endfor -%}
     {%- endif -%}
 
-   
-   
+
+
   </div>
 
   {%- if site.disqus.shortname -%}
