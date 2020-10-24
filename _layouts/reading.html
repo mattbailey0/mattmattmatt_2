@@ -1,22 +1,45 @@
 ---
 layout: default
 ---
-
+{% assign yearFilter = page.displayYear | times: 1 %}
+{% assign bookCount = 0 %}
 <div class="home">
   {%- if page.title -%}
     <h1 class="page-heading">{{ page.title }}</h1>
   {%- endif -%}
 
+  Books: on balance, I am in favor of them. These are most of the ones I've read since 2007 or so.
   {{ content }}
-
   {%- if site.posts.size > 0 -%}
 
 
-<div style="display:inline-grid;grid-template-columns:repeat(1,1fr);grid-gap:30px;padding-top:5px;">
+  <div style="grid-template-columns:repeat(1,1fr);grid-gap:30px;padding-top:5px;">
 
+    {% for ry in site.readingYears reversed %}
+      {% if ry.displayYear != yearFilter %}
+        <a href="{{ry.url}}">
+      {% endif %}
+      {{ ry.displayYear }}
+      {% if ry.displayYear != yearFilter %}
+        </a>
+      {% endif %}
+      {% if ry.displayYear != 2007 %}
+        |
+      {% endif %}
+    {% endfor %}
+    <br/><br/>
+  </div>
+
+  <div style="display:inline-grid;grid-template-columns:repeat(1,1fr);grid-gap:30px;padding-top:5px;">
 
   {%- for b in site.data.reading -%}
+    {% assign yearRead = b.DateRead | slice: 0,4 %}
+    {% assign yearRead = yearRead | times: 1 %}
+
+    {% if yearRead == yearFilter %}
+          {% assign bookCount = bookCount | plus: 1 %}
     <div style="" class="book-row">
+
       <!-- {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
         <span class="post-meta">{{ post.date | date: date_format }}</span>-->
       <span class="book-cover">
@@ -26,11 +49,7 @@ layout: default
         {%- endif -%}
       </span>
       <span class="book-date">
-        {%- if b.DateRead -%}
-          {{ b.DateRead }}
-        {%- else -%}
-          {{ b.DateAdded }}
-        {%- endif -%}
+        {{ b.DateRead }}
       </span>
       <span class="book-title">
         {%- if isbn -%}
@@ -64,10 +83,19 @@ layout: default
       </span>
 
     </div>
+    {% endif %}
   {%- endfor -%}
 
   {%- for b in site.data.goodreads -%}
     {%- if b.ExclusiveShelf == "read" -%}
+    {%- if b.DateRead -%}
+      {% assign yearRead = b.DateRead | slice: 0,4 %}
+    {%- else -%}
+      {% assign yearRead = b.DateAdded | slice: 0,4 %}
+    {%- endif -%}
+    {% assign yearRead = yearRead | times: 1 %}
+    {% if yearRead == yearFilter %}
+      {% assign bookCount = bookCount | plus: 1 %}
       <div style="" class="book-row">
         <!-- {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
           <span class="post-meta">{{ post.date | date: date_format }}</span>-->
@@ -112,12 +140,12 @@ layout: default
           {%- endif -%}
         </span>
       </div>
-
     {%- endif -%}
+    {% endif %}
   {%- endfor -%}
 
   {% assign count = site.data.reading.size | plus: site.data.goodreads.size %}
-  Total: {{ count }}
+  {{ yearFilter }} total: {{ bookCount }}
 
 </div>
 
