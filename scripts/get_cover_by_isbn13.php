@@ -1,5 +1,6 @@
 <?php
 ## tries to grab full and medium size book cover images from the internet archive for all books in /_data/reading.csv
+## php -f get_cover_by_isbn13.php {{ isbn13 }}
 
 $csvFile = file("../_data/reading.csv");
 
