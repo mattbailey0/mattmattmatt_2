@@ -1,6 +1,6 @@
 ---
 layout: art
-title: Bright+Loud
+title: Crufft
 permalink: /art/
 ---
 
