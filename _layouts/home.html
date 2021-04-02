@@ -55,11 +55,11 @@ layout: default
           {%- if post.categories contains "short" -%}
             {{ post.content }}
             {%- if post.link -%}
-            <a href="{{ post.link }}">go check it out &gt;&gt;</a>
+            <a href="{{ post.link }}" class="external">read more</a>
             {%- endif -%}
           {%- else -%}
             {{ post.content | truncatewords:50 }}
-            <br/><br/><a href="{{ post.url | relative_url }}">more &gt;&gt;</a>
+            <br/><br/><a href="{{ post.url | relative_url }}">read more &gt;&gt;</a>
           {%- endif -%}
 
         </span>

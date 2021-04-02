@@ -131,6 +131,15 @@ a {
   }
 }
 
+a.external {
+    background: url(/assets/img/ux/13px-external_link_font_awesome_1756a9.png) center right no-repeat;
+    padding-right: 18px;
+}
+
+a.external:hover {
+    background: url(/assets/img/ux/13px-external_link_font_awesome_black.png) center right no-repeat;
+    padding-right: 18px;
+}
 
 /**
  * Blockquotes
