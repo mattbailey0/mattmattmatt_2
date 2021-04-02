@@ -28,7 +28,11 @@ body {
   flex-direction: column;
 }
 
-
+//preload ux element images to hack css hover etc
+body::after{
+   position:absolute; width:0; height:0; overflow:hidden; z-index:-1; // hide images
+   content:url(/assets/img/ux/13px-external_link_font_awesome_1756a9.png) url(/assets/img/ux/13px-external_link_font_awesome_black.png);   // load images
+}
 
 /**
  * Set `margin-bottom` to maintain vertical rhythm
