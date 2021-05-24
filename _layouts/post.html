@@ -16,10 +16,11 @@ layout: default
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    {%- if page.img -%}
-      <div class="post-img-full"><img src="/assets/img/{{page.img}}" class="post-img" /></div>
-    {%- endif -%}
-
+    {%- unless page.gallery -%}
+      {%- if page.img -%}
+        <div class="post-img-full"><img src="/assets/img/{{page.img}}" class="post-img" /></div>
+        {%- endif -%}
+    {%- endunless -%}
     {%- if page.vid -%}
       <div class="post-video-full">
         <video controls >
@@ -49,31 +50,45 @@ layout: default
 
     {{ content }}
 
-<div class="PageNavigation">
-  {% if page.previous.url %}
-    <a class="prev" href="{{page.previous.url}}">| Previous |</a>
-  {% endif %}
-  {% if page.next.url %}
-    <a class="next" href="{{page.next.url}}">| Next |</a>
-  {% endif %}
-</div>
 
 
     {%- if page.gallery -%}
+    <div class="gallery">
       {%- for image in page.gallery -%}
-        <div class="post-img-full">
+        <div class="post-img-full gallery">
           <img src="/assets/img/{{image}}"/>
         </div>
       {%- endfor -%}
+    </div>
     {%- endif -%}
 
-
-
+    <div class="PageNavigation">
+      {% if page.categories %}
+        {% assign category = page.categories[0] %}
+        {% assign posts = site.categories[category] %}
+        {% for post in posts %}
+          {% if post.url == page.url %}
+            {% assign post_index0 = forloop.index0 %}
+            {% assign post_index1 = forloop.index %}
+          {% endif %}
+        {% endfor %}
+        {% for post in posts %}
+          {% if post_index0 == forloop.index %}
+            {% assign next_post = post %}
+          {% endif %}
+          {% if post_index1 == forloop.index0 %}
+            {% assign prev_post = post %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      {%- if prev_post -%}
+        <a class="prev" href="{{prev_post.url}}">| Previous |</a>
+      {%- endif -%}
+      {%- if next_post -%}
+        <a class="next" href="{{next_post.url}}">| Next |</a>
+      {%- endif -%}
+    </div>
   </div>
-
-  {%- if site.disqus.shortname -%}
-    {%- include disqus_comments.html -%}
-  {%- endif -%}
 
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>

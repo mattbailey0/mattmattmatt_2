@@ -231,17 +231,27 @@
 }
 
 .post-img {
-  max-height: 30rem;
+  //max-height: 30rem;
   padding-bottom: 3%;
 }
 
 .post-img-full,
 .post-video-full {
   max-width: 100%;
-  padding: 0 3% 3% 0;
+  padding: 3% 0 3% 0;
   > video {
     height: 500px;
   }
+}
+
+.gallery {
+    padding: 0 0 5% 0;
+}
+
+.gallery .post-img-full,
+.gallery .post-video-full {
+  padding: 5% 0 5% 0;
+  border-bottom: 1px solid #e8e8e8;
 }
 
 .post-img-hero {
