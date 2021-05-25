@@ -8,7 +8,7 @@ layout: default
     <h1 class="page-heading">{{ page.title }}</h1>
   {%- endif -%}
 
-  Books: on balance, I'm in favor of them. These are most of the ones I've read since 2007 or so. The star ratings correspond more closely to "how worth my time this book felt" rather than "how good this book is," and rating books seems mostly not that useful. But the database must be tended.
+  Books: on balance, I'm for them. These are most of the ones I've read since 2007 or so. The star ratings correspond more closely to "how worth my time this felt" than "how good this is."
   {{ content }}
   {%- if site.posts.size > 0 -%}
 
@@ -49,7 +49,7 @@ layout: default
         {%- endif -%}
       </span>
       <span class="book-date">
-        {{ b.DateRead }}
+        {{ b.DateRead | date: "%B %d" }}
       </span>
       <span class="book-title">
         {%- if isbn -%}
@@ -107,9 +107,9 @@ layout: default
         </span>
         <span class="book-date">
           {%- if b.DateRead -%}
-            {{ b.DateRead }}
+            {{ b.DateRead | date: "%B %d" }}
           {%- else -%}
-            {{ b.DateAdded }}
+            {{ b.DateAdded | date: "%B %d" }}
           {%- endif -%}
         </span>
         <span class="book-title">
