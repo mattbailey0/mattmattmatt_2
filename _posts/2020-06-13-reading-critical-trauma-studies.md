@@ -2,7 +2,7 @@
 layout: post
 title:  "Review - Critical Trauma Studies"
 date:   2020-06-13 12:00:00 -0500
-categories: reading
+categories: reading blog
 isbn13: 9781479822515
 ---
 I've been thinking a lot about individual and collective trauma recently. Given the extremity of our experiences - the pandemic, historic and ongoing U.S. racism and racial violence, the displacements and escalating disasters of the climate crisis, _and so on_, how can we begin to approach the ways that trauma has and will continue to impact our experiences, our politics and our self expression? For designers and those like civil servants who shape the systems people have to interact with to live, what does it mean to be trauma aware, and to build more just and empathetic services, systems, and language? For activists and artists, how can trauma become a source of inspiration and change-making?

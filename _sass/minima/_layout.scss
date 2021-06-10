@@ -201,6 +201,8 @@
   }
 }
 
+
+
 .post-meta {
   font-size: $small-font-size;
   color: $grey-color;
@@ -308,6 +310,38 @@
   padding: 0 1rem;
   border-left: 1px solid #e8e8e8;
 }
+
+
+/**
+ * Writing List
+ */
+.writing-list {
+  display:grid;
+  .writing-row {
+    display:inline-grid;
+    grid-template-columns:1fr 7fr;
+    grid-gap:5px;
+    padding: 0 0 1rem 0;
+    margin: 0 0 1rem 0;
+    border-bottom:1px solid #e8e8e8;
+
+    div{
+      padding-right:1rem;
+      img {
+        //float:left;
+        max-width:100%;
+        margin: 0;
+      }
+    }
+
+  }
+
+
+}
+
+
+
+
 
 
 /**

@@ -2,7 +2,7 @@
 layout: post
 title:  "No Excuse For Abuse!"
 date:   2021-04-02 00:00:01 -0500
-categories: blog short
+categories: blog short report
 link: https://pen.org/report/no-excuse-for-abuse/
 img: /misc/NoExcuseforAbuse_SocialGraphic_1.png
 ---

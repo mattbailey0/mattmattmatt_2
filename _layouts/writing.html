@@ -9,66 +9,59 @@ layout: default
 
   {{ content }}
 
-  {%- if site.posts.size > 0 -%}
+<h2>Research + Reports</h2>
 
-
-    <ul class="post-list">
-
-
-      {%- for post in site.posts -%}
-      {%- if post.categories contains "blog" or post.categories contains "reading" -%}
-      <li>
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3>
-          {%- unless post.categories contains "short" -%}
-            <a class="post-link" href="{{ post.url | relative_url }}">
-          {%- endunless -%}
-            {%- if post.categories contains "art" -%}
-              ಠ_ಠ&nbsp;&nbsp;
+    <ul class="post-list writing-list">
+      {%- for p in site.data.publications -%}
+      {%- if p.category == "report" or p.category == "research" -%}
+        <li class="writing-row">
+          <div>
+            {%- if p.image -%}
+              <img src="/assets/img/{{p.image}}" class="post-img-hero" />
             {%- endif -%}
-            {%- if post.categories contains "music" -%}
-              ♩&nbsp;
+          </div>
+          <div>
+            {%- assign date_format = site.minima.date_format | default: "%B %Y" -%}
+            {%- if p.externalLink -%}
+              <a href="{{ p.externalLink }}" class="external">
             {%- endif -%}
-            {{ post.title | escape }}
-          {%- unless post.categories contains "short" -%}
-            </a>
-          {%- endunless -%}
-        </h3>
-        {%- if post.img -%}
-          {%- if post.categories contains "short" -%}
-            <img src="/assets/img/{{post.img}}" class="post-img-hero-small" />
-          {%- else -%}
-            <img src="/assets/img/{{post.img}}" class="post-img-hero" />
-          {%- endif -%}
-        {%- endif -%}
-
-        {%- if post.vid-preview -%}
-            <img src="/assets/video/{{post.vid-preview}}" class="post-img-hero" />
-        {%- endif -%}
-
-        {%- if post.isbn13 -%}
-          <img src="/assets/img/book-covers/{{post.isbn13}}-M.jpg" class="post-img" />
-          <!--<img src="http://covers.openlibrary.org/b/isbn/{{ post.isbn13 }}-M.jpg" class="post-img-hero" />-->
-        {%- endif -%}
-        <span>
-          {%- if post.categories contains "short" -%}
-            {{ post.content }}
-            {%- if post.link -%}
-            <a href="{{ post.link }}" class="external">read more</a>
+            {{ p.title | escape }}
+            {%- if p.externalLink -%}
+              </a>
             {%- endif -%}
-          {%- else -%}
-            {{ post.content | truncatewords:50 }}
-            <br/><br/><a href="{{ post.url | relative_url }}">read more &gt;&gt;</a>
-          {%- endif -%}
-
-        </span>
-      </li>
+            <br/><span class="post-meta">{{p.publisher}}, {{ p.date | date: date_format }}</span>
+          </div>
+        </li>
       {%- endif -%}
       {%- endfor -%}
     </ul>
 
 
+<h2>Articles + other Publications</h2>
+<ul class="post-list writing-list">
+  {%- for p in site.data.publications -%}
+  {%- if p.category == "article" -%}
+    <li class="writing-row">
+      <div>
+        {%- if p.image -%}
+          <img src="/assets/img/{{p.image}}" class="post-img-hero" />
+        {%- endif -%}
+      </div>
+      <div>
+        {%- assign date_format = site.minima.date_format | default: "%B %Y" -%}
+        {%- if p.externalLink -%}
+          <a href="{{ p.externalLink }}" class="external">
+        {%- endif -%}
+        {{ p.title | escape }}
+        {%- if p.externalLink -%}
+          </a>
+        {%- endif -%}
+        <br/><span class="post-meta">{{p.publisher}}, {{ p.date | date: date_format }}</span>
+      </div>
+    </li>
   {%- endif -%}
+  {%- endfor -%}
+</ul>
+
 
 </div>

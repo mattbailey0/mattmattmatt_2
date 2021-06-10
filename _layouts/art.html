@@ -14,10 +14,10 @@ layout: default
 
 <div style="display:inline-grid;grid-template-columns:repeat(3,1fr);grid-gap:30px;padding-top:5px;">
   {%- for post in site.posts -%}
- {%- if post.categories contains "music" or post.categories contains "art" -%}
+    {%- if post.categories contains "music" or post.categories contains "art" -%}
     <div style=" ">
-    
-     
+
+
       {%- if post.img -%}
         <img src="/assets/img/{{post.img}}" class="art-img-tile" />
       {%- elsif post.vid-preview -%}
@@ -37,7 +37,7 @@ layout: default
         </a>
       </h2>
       {{ post.content | truncatewords:20 }}
-      
+
     </div>
   {%- endif -%}
   {%- endfor -%}
@@ -46,5 +46,5 @@ layout: default
 </div>
 
 
-  
+
   {%- endif -%}

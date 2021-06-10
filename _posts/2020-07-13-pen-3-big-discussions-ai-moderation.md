@@ -2,7 +2,7 @@
 layout: post
 title:  "Three Big Discussions We Need to Have ASAP About AI and Social Media Moderation"
 date:   2020-07-13 15:17:22 -0500
-categories: blog short
+categories: blog short article
 link: https://pen.org/three-big-discussions-ai-social-media-moderation/
 img: /logos/pen-america.png
 ---

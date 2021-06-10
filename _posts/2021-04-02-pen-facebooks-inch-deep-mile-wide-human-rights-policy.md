@@ -2,7 +2,7 @@
 layout: post
 title:  "Facebook’s Inch Deep, Mile-Wide Human Rights Policy"
 date:   2021-04-02 00:00:00 -0500
-categories: blog short
+categories: blog short article
 link: https://pen.org/facebooks-inch-deep-mile-wide-human-rights-policy/
 img: /logos/pen-america.png
 ---

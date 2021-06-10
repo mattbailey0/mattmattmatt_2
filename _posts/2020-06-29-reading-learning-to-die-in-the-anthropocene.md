@@ -2,12 +2,12 @@
 layout: post
 title:  "Review - Learning to Die in the Anthropocene"
 date:   2020-06-29 12:00:00 -0500
-categories: reading
+categories: reading blog
 isbn13: 9780872866690
 ---
 
 
-I have grown to really appreciate concise, idea-packed writing. This book meets those criteria. It takes an existential view to the global climate crisis, asking us to confront the fact that it might already be too late to save what we have as a precondition to meaningful action. What I appreciated about it most was that it refuses, unlike quite a lot of writing about current events and politics, to present a totalizing Theory of Everything or to trade in throwaway neologisms. This is a book about finding new lines of flight in the face of the unspeakable and overspoken. 
+I have grown to really appreciate concise, idea-packed writing. This book meets those criteria. It takes an existential view to the global climate crisis, asking us to confront the fact that it might already be too late to save what we have as a precondition to meaningful action. What I appreciated about it most was that it refuses, unlike quite a lot of writing about current events and politics, to present a totalizing Theory of Everything or to trade in throwaway neologisms. This is a book about finding new lines of flight in the face of the unspeakable and overspoken.
 
 There is a beautiful quote within a quote that stuck with me:
 

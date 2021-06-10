@@ -2,7 +2,8 @@
 layout: post
 title:  "Where Does the Idea of a Disinformation \"Infodemic\" Come From?"
 date:   2020-10-14 00:00:01 -0500
-categories: blog short
+categories: blog short article
+tags: article
 link: https://hyperallergic.com/592829/where-does-the-idea-of-a-disinformation-infodemic-originate/
 img: /logos/hyperallergic-full.png
 ---
