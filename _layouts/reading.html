@@ -68,18 +68,21 @@ layout: default
             {{ b.AdditionalAuthors }}
           {%- endif -%}
         {%- endif -%}
+        {% assign rpost = site.posts | where: "isbn13", isbn | first %}
+        {%- if rpost -%}
+          <p>
+            <br/>
+            {{ rpost.content | strip_html | truncatewords: 25 }}
+            <a href="{{ rpost.url }}">more &gt;&gt;</a>&nbsp;
+          </p>
+
+        {%- endif -%}
       </span>
+
       <span class="book-rating">
         {%- for r in (1..b.MyRating) -%}
           &#10026;&nbsp;
         {%- endfor -%}
-        {% assign rpost = site.posts | where: "isbn13", isbn | first %}
-        {%- if rpost -%}
-          <br/>
-          {{ rpost.content | truncatewords: 50 }}
-          <br/>
-          <a href="{{ rpost.url }}">more &gt;&gt;</a>
-        {%- endif -%}
       </span>
 
     </div>
@@ -129,15 +132,17 @@ layout: default
               {{ b.AdditionalAuthors }}
             {%- endif -%}
           {%- endif -%}
+          {%- if b.MyReview -%}
+            <p>
+              <br/>
+              {{ b.MyReview }}
+            </p>
+          {%- endif -%}
         </span>
         <span class="book-rating">
           {%- for r in (1..b.MyRating) -%}
             &#10026;&nbsp;
           {%- endfor -%}
-          {%- if b.MyReview -%}
-            <br/>
-            {{ b.MyReview }}
-          {%- endif -%}
         </span>
       </div>
     {%- endif -%}
