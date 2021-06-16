@@ -29,6 +29,24 @@ layout: default
             {%- if p.externalLink -%}
               </a>
             {%- endif -%}
+
+
+            {%- if (p.role || p.additionalAuthors) -%}
+              <br/>
+              <span class="post-meta">
+                {%- if p.role -%}
+                {{ p.role }}
+                {%- if p.additionalAuthors -%}
+                  ,&nbsp;
+                {%- endif -%}
+              {%- endif -%}
+              {%- if p.additionalAuthors -%}
+                w/ {{ p.additionalAuthors }}
+              {%- endif -%}
+              </span>
+            {%- endif -%}
+
+
             <br/><span class="post-meta">{{p.publisher}}, {{ p.date | date: date_format }}</span>
           </div>
         </li>
@@ -52,10 +70,12 @@ layout: default
         {%- if p.externalLink -%}
           <a href="{{ p.externalLink }}" class="external">
         {%- endif -%}
+
         {{ p.title | escape }}
         {%- if p.externalLink -%}
           </a>
         {%- endif -%}
+
         <br/><span class="post-meta">{{p.publisher}}, {{ p.date | date: date_format }}</span>
       </div>
     </li>
