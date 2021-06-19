@@ -1,4 +1,6 @@
-Title,Author,AuthorLF,AdditionalAuthors,ISBN,ISBN13,MyRating,Publisher,YearPublished,OriginalPublicationYear,DateRead
+Title,Author,AuthorLF,AdditionalAuthors,ISBN,ISBN13,MyRating,Publisher,YearPublished,OriginalPublicationYear,DateRead,externalLink
+"The Origins of Totalitarianism",Hannah Arendt,,,,9781433206634,5,Blackstone Audiobooks,2007,1951,2021/06/18
+"The_Future_is_Now / Neon_Rising (v2.3)",Josan Gonzalez,,,,9788494608438,5,Citadel 9,2020,2020,2021/06/13,https://citadel9.com/products/the-future-is-now_neon-rising
 "Cruel Optimism",Lauren Berlant,,,,9780822351115,4,Duke University Press,2011,2011,2021/06/12
 "The Kill: La Curée",Émile Zola,,,,9780199536924,5,Oxford University Press,2008,2008,2021/05/22
 "Terrorist Assemblages: Homonationalism in Queer Times",Jasbir K. Puar,,,,9780822341147,5,Duke University Press,2007,2007,2021/05/15
@@ -15,7 +17,7 @@ Title,Author,AuthorLF,AdditionalAuthors,ISBN,ISBN13,MyRating,Publisher,YearPubli
 "Hyperbole and a Half",Allie Brosh,,,,9781451666175,4,Gallery Books,2019,2013,2020/12/24
 "The Long Take",Robin Robertson,,,,9781509846887,5,Picador Poetry,2018,2018,2020/11/27
 "The Gates of Europe: A History of Ukraine",Serhii Plokhy,,,,9780465094868,5,Basic Books,2015,2015,2020/11/21
-"Agency (Jackpot #2)",William Gibson,,,,9781101986936,4,Berkley,2020,2020,2020/10/30
+"Agency (Jackpot #2)",William Gibson,,,,9781101986936,4,Berkley,2020,2020,2020/10/30x`
 "Dare to Speak",Suzanne Nossel,,,,9780062966032,5,Harper Collins,2020,2020,2020/10/20
 "The Internet of Garbage",Sarah Jeong,,,,9781508018865,5,Vox Media,2018,2015,2020/10/12
 "The City We Became",N.K. Jemisin,,,,9780316509848,5,Orbit,2020,2020,2020/10/10

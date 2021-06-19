@@ -52,11 +52,13 @@ layout: default
         {{ b.DateRead | date: "%B %d" }}
       </span>
       <span class="book-title">
-        {%- if isbn -%}
+        {%- if b.externalLink -%}
+          <a href="{{b.externalLink}}">
+        {%- elsif isbn -%}
           <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
         {%- endif -%}
         {{ b.Title }}
-        {%- if isbn -%}
+        {%- if isbn || b.externalLink -%}
           </a>
         {%- endif -%}
 
