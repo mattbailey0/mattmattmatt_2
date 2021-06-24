@@ -58,7 +58,7 @@ layout: default
           <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
         {%- endif -%}
         {{ b.Title }}
-        {%- if isbn || b.externalLink -%}
+        {%- if isbn or b.externalLink -%}
           </a>
         {%- endif -%}
 

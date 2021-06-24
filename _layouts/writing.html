@@ -31,7 +31,7 @@ layout: default
             {%- endif -%}
 
 
-            {%- if (p.role || p.additionalAuthors) -%}
+            {%- if p.role or p.additionalAuthors -%}
               <br/>
               <span class="post-meta">
                 {%- if p.role -%}
