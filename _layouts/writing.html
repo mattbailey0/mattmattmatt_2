@@ -71,7 +71,28 @@ layout: default
           <a href="{{ p.externalLink }}" class="external">
         {%- endif -%}
 
+
         {{ p.title | escape }}
+
+        {%- if p.role or p.additionalAuthors -%}
+          <br/>
+          <span class="post-meta">
+            {%- if p.role -%}
+            {{ p.role }}
+            {%- if p.additionalAuthors -%}
+              ,&nbsp;
+            {%- endif -%}
+          {%- endif -%}
+          {%- if p.additionalAuthors -%}
+            w/ {{ p.additionalAuthors }}
+          {%- endif -%}
+          </span>
+        {%- endif -%}
+
+
+
+
+
         {%- if p.externalLink -%}
           </a>
         {%- endif -%}
