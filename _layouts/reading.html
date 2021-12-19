@@ -66,8 +66,7 @@ layout: default
           <br/>
           {{ b.Author }}
           {%- if b.AdditionalAuthors -%}
-            <br/>
-            {{ b.AdditionalAuthors }}
+            , {{ b.AdditionalAuthors }}
           {%- endif -%}
         {%- endif -%}
         {% assign rpost = site.posts | where: "isbn13", isbn | first %}
