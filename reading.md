@@ -1,6 +1,6 @@
 ---
 layout: reading
 title: Reading
-displayYear: 2021
+displayYear: 2022
 permalink: /reading/
 ---
