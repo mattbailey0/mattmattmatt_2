@@ -45,7 +45,18 @@ layout: default
       <span class="book-cover">
         {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
         {%- if isbn and isbn.size == 13 -%}
-          <img src="/assets/img/book-covers/{{ isbn | escape }}-M.jpg" />
+          {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '-M.jpg' %}
+          {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+          {% if bkimg %}
+            <img src="{{bkpath}}" />
+          {% else %}
+            {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '-M.webp' %}
+            {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+            {% if bkimg %}
+              <img src="{{bkpath}}" />
+            {% endif %}
+          {% endif %}
+
         {%- endif -%}
       </span>
       <span class="book-date">
