@@ -191,17 +191,22 @@
 .post-list {
   margin-left: 0;
   list-style: none;
-  > li {
-    margin-bottom: $spacing-unit;
-    padding-bottom: $spacing-unit;
-    border-bottom: 1px solid #e8e8e8;
+  > .post-preview {
+
+
     > h3 {
     font-size: 24px;
     }
+
   }
 }
 
-
+.post-footer {
+  margin-bottom: $spacing-unit;
+  padding-bottom: $spacing-unit;
+  clear: left;
+  border-bottom: 1px solid #e8e8e8;
+}
 
 .post-meta {
   font-size: $small-font-size;

@@ -17,7 +17,7 @@ layout: default
 
       {%- for post in site.posts -%}
 
-      <li>
+      <li class="post-preview">
         {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
         <span class="post-meta">{{ post.date | date: date_format }}</span>
         <h3>
@@ -55,7 +55,11 @@ layout: default
           {%- if post.categories contains "short" -%}
             {{ post.content }}
             {%- if post.link -%}
-            <a href="{{ post.link }}" class="external">read more</a>
+              {%- if post.categories contains "video" -%}
+                <a href="{{ post.link }}" class="external">watch it here</a>
+              {%- else -%}
+                <a href="{{ post.link }}" class="external">read more</a>
+              {%- endif -%}
             {%- endif -%}
           {%- else -%}
             {{ post.content | truncatewords:50 }}
@@ -63,6 +67,8 @@ layout: default
           {%- endif -%}
 
         </span>
+
+        <li class="post-footer"></li>
       </li>
 
       {%- endfor -%}
