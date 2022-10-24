@@ -1,8 +1,35 @@
 ---
 layout: default
 ---
-{% assign yearFilter = page.displayYear | times: 1 %}
+
+<!-------
+TODO
+- multiple authors for GOODREADS
+- alphabetical sorting of authors by last name instead of First
+- consider last, first modeling in reading.csv to assist with sorts and consistent authorLastInitial
+  - note that goodreads has this already in the data
+- consider author role issue - ed, trans, so forth - do I care
+- standardized bookrow layout - goodreads vs New
+  - mvc separation for bookrows to standardize THIS
+    - sorting of books by title
+- total counts at bottom of page - fix hacked logic
+- multiple author names in bookrows & weirdness
+- author photos??
+
+--->
+
+
+{% if page.authorsFilter %}
+  {% assign authorsFilter = page.authorsFilter %}
+{% elsif page.displayYear %}
+  {% assign yearFilter = page.displayYear %}
+{% else %}
+  {% assign yearFilter = site.readingYears.last.displayYear %}
+{% endif %}
+
 {% assign bookCount = 0 %}
+
+
 <div class="home">
   {%- if page.title -%}
     <h1 class="page-heading">{{ page.title }}</h1>
@@ -10,144 +37,292 @@ layout: default
 
   Books: on balance, I'm for them. These are most of the ones I've read since 2007 or so. The star ratings correspond more closely to "how worth my time this felt" than "how good this is."
   {{ content }}
-  {%- if site.posts.size > 0 -%}
 
-
+  <!-- SECOND LEVEL NAV -->
   <div style="grid-template-columns:repeat(1,1fr);grid-gap:30px;padding-top:5px;">
+    <a href="{{site.readingYears.last.url}}">Years</a> | <a href="{{site.readingAuthors[0].url}}">Authors</a>
+    <br/>
+  </div>
 
-    {% for ry in site.readingYears reversed %}
-      {% if ry.displayYear != yearFilter %}
-        <a href="{{ry.url}}">
+  <!-- THIRD LEVEL NAV -->
+  <!-- IF AUTHORS -->
+  {% if authorsFilter and authorsFilter != "" and authorsFilter != nil %}
+  <div style="grid-template-columns:repeat(1,1fr);grid-gap:30px;padding-top:5px;">
+    {% for ra in site.readingAuthors %}
+      {% if ra.authorsFilter != authorsFilter %}
+        <a href="{{ra.url}}">
       {% endif %}
-      {{ ry.displayYear }}
-      {% if ry.displayYear != yearFilter %}
+      {{ ra.displayAuthors }}
+      {% if ra.authorsFilter != authorsFilter %}
         </a>
       {% endif %}
-      {% if ry.displayYear != 2007 %}
+      {% if ra.displayAuthors != "Z" %}  <!-- TODO can we generalize this  - .last, whatever -->
         |
       {% endif %}
     {% endfor %}
     <br/><br/>
   </div>
 
+  <!-- IF YEARS (DEFAULT) -->
+  <div style="grid-template-columns:repeat(1,1fr);grid-gap:30px;padding-top:5px;">
+  {% elsif yearFilter and yearFilter != "" and yearFilter != nil %}
+    {% if page.displayYear %}
+      {% for ry in site.readingYears reversed %}
+        {% if ry.displayYear != yearFilter %}
+          <a href="{{ry.url}}">
+        {% endif %}
+        {{ ry.displayYear }}
+        {% if ry.displayYear != yearFilter %}
+          </a>
+        {% endif %}
+        {% if ry.displayYear != 2007 %}
+          |
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    <br/><br/>
+  </div>
+  {% endif %}
+
+
+  <!-- CONTENT -->
   <div style="display:inline-grid;grid-template-columns:repeat(1,1fr);grid-gap:30px;padding-top:5px;">
 
-  {%- for b in site.data.reading -%}
-    {% assign yearRead = b.DateRead | slice: 0,4 %}
-    {% assign yearRead = yearRead | times: 1 %}
 
-    {% if yearRead == yearFilter %}
-          {% assign bookCount = bookCount | plus: 1 %}
-    <div style="" class="book-row">
+  <!-- IF AUTHORS VIEW -->
+    <!--- build relevant index of authors -->
+    {% if authorsFilter and authorsFilter != "" and authorsFilter != nil %}
 
-      <!-- {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>-->
-      <span class="book-cover">
-        {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
-        {%- if isbn and isbn.size == 13 -%}
-          {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '-M.jpg' %}
-          {% assign bkimg = site.static_files | where: "path",bkpath | first %}
-          {% if bkimg %}
-            <img src="{{bkpath}}" />
-          {% else %}
-            {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '-M.webp' %}
-            {% assign bkimg = site.static_files | where: "path",bkpath | first %}
-            {% if bkimg %}
-              <img src="{{bkpath}}" />
-            {% endif %}
-          {% endif %}
+      <!-- first get authors from post-goodreads -->
+      {%- for b in site.data.reading -%}
+        {% if b.Authors and b.Authors != "" and b.Authors != nil %}
+          {% assign authors = b.Authors | split: "|" %}
+          {% for a in authors %}
+            {% assign authorLastInitial = a | split: " " | last | slice: 0,1 | downcase %}
+            {% for af in authorsFilter %}
 
-        {%- endif -%}
-      </span>
-      <span class="book-date">
-        {{ b.DateRead | date: "%B %d" }}
-      </span>
-      <span class="book-title">
-        {%- if b.externalLink -%}
-          <a href="{{b.externalLink}}">
-        {%- elsif isbn -%}
-          <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
-        {%- endif -%}
-        {{ b.Title }}
-        {%- if isbn or b.externalLink -%}
-          </a>
-        {%- endif -%}
+              {% if authorLastInitial == af  %}
+                {% assign a = a | split: "," %}
+                {% assign authorsIndex = authorsIndex | append: a | append: ","  %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
 
-        {%- if b.Author -%}
-          <br/>
-          {{ b.Author }}
-          {%- if b.AdditionalAuthors -%}
-            , {{ b.AdditionalAuthors }}
-          {%- endif -%}
-        {%- endif -%}
-        {% assign rpost = site.posts | where: "isbn13", isbn | first %}
-        {%- if rpost -%}
-          <p>
-            <br/>
-            {{ rpost.content | strip_html | truncatewords: 25 }}
-            <a href="{{ rpost.url }}">more &gt;&gt;</a>&nbsp;
-          </p>
+      <!-- now get authors from goodreads -->
+      {% for b in site.data.goodreads %}
+        {% if b.ExclusiveShelf == "read" %}
+            {% assign authorLastInitial = b.Author | split: " " | last | slice: 0,1 | downcase %}
+            {% for af in authorsFilter %}
+              {% if authorLastInitial == af %}
+                {% assign authorsIndex = authorsIndex | append: b.Author | append: ","  %}
+              {% endif %}
+            {% endfor %}
+        {% endif %}
+      {% endfor %}
 
-        {%- endif -%}
-      </span>
+      <!-- finally, dedupe and sort the combined list-->
+      {% assign authorsIndex = authorsIndex | split: "," %}
+      {% assign authorsIndex = authorsIndex | sort_natural | uniq %}
 
-      <span class="book-rating">
-        {%- for r in (1..b.MyRating) -%}
-          &#10026;&nbsp;
-        {%- endfor -%}
-      </span>
+    <!-- now build view, including finding relevant books -->
+    {% for ai in authorsIndex %}
+    <div style="" class="book-author-row">
+      <h2>{{ ai }}</h2>
+
+      <!-- first add rows for post-goodreads -->
+      {% for b in site.data.reading %}
+        {% assign authorsBook = b.Authors | split: "|" %}
+        {% for ab in authorsBook %}
+          {% if ab == ai %}
+            {% assign bookCount = bookCount | plus: 1 %}
+            <div style="" class="book-row">
+              <span class="book-cover">
+                {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
+                {%- if isbn and isbn.size == 13 -%}
+                  {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '-M.jpg' %}
+                  {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+                  {% if bkimg %}
+                    <img src="{{bkpath}}" />
+                  {% else %}
+                    {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '-M.webp' %}
+                    {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+                    {% if bkimg %}
+                      <img src="{{bkpath}}" />
+                    {% endif %}
+                  {% endif %}
+                {%- endif -%}
+              </span>
+              <span class="book-title">
+                {%- if b.externalLink -%}
+                  <a href="{{b.externalLink}}">
+                {%- elsif isbn -%}
+                  <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
+                {%- endif -%}
+                {{ b.Title }}
+                {%- if isbn or b.externalLink -%}
+                  </a>
+                {%- endif -%}
+
+                {%- if b.Authors -%}
+                  <br/>
+                  {% assign authors = b.Authors | split: "|" %}
+                    {% for a in authors %}
+                      {{ a }},
+                    {% endfor %}
+                {%- endif -%}
+                {% assign rpost = site.posts | where: "isbn13", isbn | first %}
+                {%- if rpost -%}
+                  <p>
+                    <br/>
+                    {{ rpost.content | strip_html | truncatewords: 25 }}
+                    <a href="{{ rpost.url }}">more &gt;&gt;</a>&nbsp;
+                  </p>
+                {%- endif -%}
+              </span>
+              <span class="book-date">
+                {{ b.DateRead | date: "%B %d %Y" }}
+              </span>
+              <span class="book-rating">
+                {%- for r in (1..b.MyRating) -%}
+                  &#10026;&nbsp;
+                {%- endfor -%}
+              </span>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+
+    <!-- now add rows for goodreads -->
+    {% for b in site.data.goodreads %}
+      {% if b.ExclusiveShelf == "read" %}
+        {% if b.Author == ai %}
+        <div style="" class="book-row">
+          <span class="book-cover">
+            {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
+            {%- if isbn and isbn.size == 13 -%}
+              <img src="/assets/img/book-covers/{{ isbn | escape }}-M.jpg" />
+            {%- endif -%}
+          </span>
+          <span class="book-title">
+            {%- if isbn -%}
+              <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
+            {%- endif -%}
+            {{ b.Title }}
+            {%- if isbn -%}
+              </a>
+            {%- endif -%}
+
+            {%- if b.Author -%}
+              <br/>
+              {{ b.Author }}
+              {%- if b.AdditionalAuthors -%}
+                <br/>
+                {{ b.AdditionalAuthors }}
+              {%- endif -%}
+            {%- endif -%}
+            {%- if b.MyReview -%}
+              <p>
+                <br/>
+                {{ b.MyReview }}
+              </p>
+            {%- endif -%}
+          </span>
+          <span class="book-date">
+            {%- if b.DateRead -%}
+              {{ b.DateRead | date: "%B %d %Y" }}
+            {%- else -%}
+              {{ b.DateAdded | date: "%B %d %Y" }}
+            {%- endif -%}
+          </span>
+          <span class="book-rating">
+            {%- for r in (1..b.MyRating) -%}
+              &#10026;&nbsp;
+            {%- endfor -%}
+          </span>
+        </div>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+
+
+
 
     </div>
-    {% endif %}
-  {%- endfor -%}
+    {% endfor %}
+  {% endif %}
 
-  {%- for b in site.data.goodreads -%}
-    {%- if b.ExclusiveShelf == "read" -%}
-    {%- if b.DateRead -%}
-      {% assign yearRead = b.DateRead | slice: 0,4 %}
-    {%- else -%}
-      {% assign yearRead = b.DateAdded | slice: 0,4 %}
-    {%- endif -%}
-    {% assign yearRead = yearRead | times: 1 %}
-    {% if yearRead == yearFilter %}
+
+
+<!------------------------ BELOW THIS LINE NEEDS REFACTORING ------------------------>
+
+  <!---------------------------------------->
+  <!-- FIRST WE DO POST-GOODREADS RECORDS -->
+
+  {%- for b in site.data.reading -%}
+
+    <!-- IF AUTHORS -->
+    <!--- TODODO TODO Remove this whole section and refactor -->
+    {% if authorsFilter and authorsFilter != "" and authorsFilter != nil %}
+      {% assign addRow = 0 %}
+
+    <!-- IF YEARS -->
+    {% elsif yearFilter and yearFilter != "" and yearFilter != nil %}
+      {% assign yearRead = b.DateRead | slice: 0,4 | times: 1 %}
+      {% if yearRead == yearFilter  %}
+        {% assign addRow = 1 %}
+      {% endif %}
+    {% endif %}
+
+    <!-- now actually build the content -->
+    {% if addRow == 1 %}
       {% assign bookCount = bookCount | plus: 1 %}
       <div style="" class="book-row">
-        <!-- {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-          <span class="post-meta">{{ post.date | date: date_format }}</span>-->
         <span class="book-cover">
           {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
           {%- if isbn and isbn.size == 13 -%}
-            <img src="/assets/img/book-covers/{{ isbn | escape }}-M.jpg" />
+            {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '-M.jpg' %}
+            {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+            {% if bkimg %}
+              <img src="{{bkpath}}" />
+            {% else %}
+              {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '-M.webp' %}
+              {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+              {% if bkimg %}
+                <img src="{{bkpath}}" />
+              {% endif %}
+            {% endif %}
           {%- endif -%}
         </span>
         <span class="book-date">
-          {%- if b.DateRead -%}
-            {{ b.DateRead | date: "%B %d" }}
-          {%- else -%}
-            {{ b.DateAdded | date: "%B %d" }}
-          {%- endif -%}
+          {{ b.DateRead | date: "%B %d %Y" }}
         </span>
         <span class="book-title">
-          {%- if isbn -%}
+          {%- if b.externalLink -%}
+            <a href="{{b.externalLink}}">
+          {%- elsif isbn -%}
             <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
           {%- endif -%}
           {{ b.Title }}
-          {%- if isbn -%}
+          {%- if isbn or b.externalLink -%}
             </a>
           {%- endif -%}
 
-          {%- if b.Author -%}
+          {%- if b.Authors -%}
             <br/>
-            {{ b.Author }}
-            {%- if b.AdditionalAuthors -%}
-              <br/>
-              {{ b.AdditionalAuthors }}
-            {%- endif -%}
+            {% assign authors = b.Authors | split: "|" %}
+              {% for a in authors %}
+                {{ a }} &
+              {% endfor %}
           {%- endif -%}
-          {%- if b.MyReview -%}
+          {% assign rpost = site.posts | where: "isbn13", isbn | first %}
+          {%- if rpost -%}
             <p>
               <br/>
-              {{ b.MyReview }}
+              {{ rpost.content | strip_html | truncatewords: 25 }}
+              <a href="{{ rpost.url }}">more &gt;&gt;</a>&nbsp;
             </p>
           {%- endif -%}
         </span>
@@ -157,15 +332,98 @@ layout: default
           {%- endfor -%}
         </span>
       </div>
-    {%- endif -%}
     {% endif %}
+
+    {% assign addRow = 0 %}
   {%- endfor -%}
 
-  {% assign count = site.data.reading.size | plus: site.data.goodreads.size %}
-  {{ yearFilter }} total: {{ bookCount }}
-
-</div>
 
 
+<!---------------------------------------->
+<!-- NOW WE DO YE OLDE GOODREADS RECORDS -->
+{%- for b in site.data.goodreads -%}
+  {%- if b.ExclusiveShelf == "read" -%}
+    <!-- IF AUTHORS -->
+    {% if authorsFilter and authorsFilter != "" and authorsFilter != nil %}
 
+          {% assign addRow = 0 %}
+
+
+    <!-- IF YEARS (DEFAULT) -->
+    {% elsif yearFilter and yearFilter != "" and yearFilter != nil %}
+      {%- if b.DateRead -%}
+        {% assign yearRead = b.DateRead | slice: 0,4 %}
+      {%- else -%}
+        {% assign yearRead = b.DateAdded | slice: 0,4 %}
+      {%- endif -%}
+      {% assign yearRead = yearRead | times: 1 %}
+      {% if yearRead == yearFilter  %}
+        {% assign addRow = 1 %}
+        {% endif %}
+    {% endif %}
   {%- endif -%}
+
+<!-- now actually build the CONTENT -->
+  {% if addRow == 1 %}
+    {% assign bookCount = bookCount | plus: 1 %}
+
+    <div style="" class="book-row">
+      <span class="book-cover">
+        {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
+        {%- if isbn and isbn.size == 13 -%}
+          <img src="/assets/img/book-covers/{{ isbn | escape }}-M.jpg" />
+        {%- endif -%}
+      </span>
+      <span class="book-date">
+        {%- if b.DateRead -%}
+          {{ b.DateRead | date: "%B %d %Y" }}
+        {%- else -%}
+          {{ b.DateAdded | date: "%B %d %Y" }}
+        {%- endif -%}
+      </span>
+      <span class="book-title">
+        {%- if isbn -%}
+          <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
+        {%- endif -%}
+        {{ b.Title }}
+        {%- if isbn -%}
+          </a>
+        {%- endif -%}
+
+        {%- if b.Author -%}
+          <br/>
+          {{ b.Author }}
+          {%- if b.AdditionalAuthors -%}
+            <br/>
+            {{ b.AdditionalAuthors }}
+          {%- endif -%}
+        {%- endif -%}
+        {%- if b.MyReview -%}
+          <p>
+            <br/>
+            {{ b.MyReview }}
+          </p>
+        {%- endif -%}
+      </span>
+      <span class="book-rating">
+        {%- for r in (1..b.MyRating) -%}
+          &#10026;&nbsp;
+        {%- endfor -%}
+      </span>
+    </div>
+
+  {% endif %}
+  {% assign addRow = 0 %}
+{%- endfor -%}
+
+  <!-------------------------------->
+  <!-------------------------------->
+
+  {% assign count = site.data.reading.size | plus: site.data.goodreads.size %}
+
+<!-- cruft cruft -->
+  {% if authorsFilter and authorsFilter != "" and authorsFilter != nil %}
+  {% elsif yearFilter and yearFilter != "" and yearFilter != nil %}
+    {{ yearFilter }} total: {{ bookCount }}
+  {% endif %}
+</div>

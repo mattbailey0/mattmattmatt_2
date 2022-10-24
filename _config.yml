@@ -30,7 +30,11 @@ plugins:
 collections:
   readingYears:
     output: true
-    permalink: /reading/:name
+    permalink: /reading/years/:name
+  readingAuthors:
+    output: true
+    permalink: /reading/authors/:name
+
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
