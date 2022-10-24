@@ -1,6 +1,6 @@
 ---
 layout: reading
 title: Reading
-displayAuthors: l
+displayAuthors: L
 authorsFilter: ["l","ł"]
 ---

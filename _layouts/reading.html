@@ -169,7 +169,7 @@ TODO
                   <br/>
                   {% assign authors = b.Authors | split: "|" %}
                     {% for a in authors %}
-                      {{ a }},
+                      {{ a }}<br/>
                     {% endfor %}
                 {%- endif -%}
                 {% assign rpost = site.posts | where: "isbn13", isbn | first %}
@@ -314,7 +314,7 @@ TODO
             <br/>
             {% assign authors = b.Authors | split: "|" %}
               {% for a in authors %}
-                {{ a }} &
+                {{ a }}<br/>
               {% endfor %}
           {%- endif -%}
           {% assign rpost = site.posts | where: "isbn13", isbn | first %}
