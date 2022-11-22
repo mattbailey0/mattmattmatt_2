@@ -102,6 +102,7 @@
 
 
 
+
 /**
  * Site footer
  */
@@ -178,6 +179,11 @@
 .page-content {
   padding: $spacing-unit 0;
   flex: 1;
+  background-image: url('/assets/img//art/4am-mirror-slouch/version_01a.jpg');
+  .wrapper {
+    padding: 2rem;
+    background: white;
+  }
 }
 
 .page-heading {
