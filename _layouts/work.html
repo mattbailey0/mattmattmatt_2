@@ -1,0 +1,115 @@
+---
+layout: default
+---
+
+<div class="home">
+  {%- if page.title -%}
+    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  <div class="about-content">
+    <div>
+      <img src="/assets/img/misc/fancy-fancy.jpg" />
+    </div>
+    <div>
+      {{ content }}
+    </div>
+  </div>
+
+  <div style="grid-template-columns:repeat(1,1fr);grid-gap:30px;padding-top:5px;">
+    <a href="#projects">Projects</a> | <a href="#positions">Positions</a> | <a href="#recognition">Recognition</a>
+    <br/>
+    <br/>
+  </div>
+
+  <div class="section-header-row" id="projects">
+    <h2>Projects</h2>
+    Here are a few projects I've led or been a core contributor to. <a href="projects">
+    <br/>Read about more projects here.</a>
+  </div>
+
+  <div  style="display:inline-grid;grid-template-columns:repeat(1,1fr);grid-gap:30px;padding-top:5px;">
+    <ul class="post-list project-list">
+      {% for p in site.data.projects %}
+      <li class="project-row">
+        <div>
+          {% if p.image %}
+            <img src="/assets/img/{{ p.image }}" />
+          {% endif %}
+        </div>
+        <div>
+          <b>{{ p.project}}</b>
+          <p>
+            {{p.blurb}} ({{p.start}})
+          </p>
+          <p>
+            <a href="{{p.externalLink}}" class="external">read more</a>
+          </p>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+
+  <div class="section-header-row" id="positions">
+    <h2>Positions</h2>
+  </div>
+
+  <div style="display:inline-grid;grid-template-columns:repeat(1,1fr);grid-gap:30px;padding-top:5px;">
+      <ul class="post-list position-list">
+        {% for p in site.data.positions %}
+        <li class="position-row">
+          <div>
+            {% if p.image %}
+              <img src="/assets/img/{{ p.image }}" />
+            {% endif %}
+          </div>
+          <div>
+            <p>
+              <b>{{ p.role}}</b>
+              <br/>{{ p.organization }}, {{p.start}} - {{p.end}}
+            </p>
+            <p>
+              {{p.blurb}}
+            </p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+  </div>
+
+
+  <div class="section-header-row" id="recognition">
+    <h2>Recognition</h2>
+  </div>
+
+  <div  style="display:inline-grid;grid-template-columns:repeat(1,1fr);grid-gap:30px;padding-top:5px;">
+      <ul class="post-list honor-list">
+        {% for r in site.data.recognition %}
+        <li class="honor-row">
+          <div>
+            {% if r.image %}
+              <img src="/assets/img/{{ r.image }}" />
+            {% endif %}
+          </div>
+          <div>
+            <b>{{ r.recognition}}</b>
+            <br/>{{ r.organization }}, {{r.date}}
+            {% if r.externalLink != null and r.externalLink != "" %}
+              <p>
+                <a href="{{r.externalLink}}" class="external">read more</a>
+              </p>
+            {% endif %}
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+  </div>
+
+
+
+
+
+
+</div>

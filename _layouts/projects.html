@@ -1,0 +1,44 @@
+---
+layout: default
+---
+
+<div class="home">
+  {%- if page.title -%}
+    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  <div>
+    {{ content }}
+  </div>
+
+  <div id="projects" style="display:inline-grid;grid-template-columns:repeat(1,1fr);grid-gap:30px;padding-top:5px;">
+    <h2>Projects</h2>
+    <ul class="post-list project-list">
+      {% for p in site.data.projects %}
+      <li class="project-row">
+        <div>
+          {% if p.image %}
+            <img src="/assets/img/{{ p.image }}" />
+          {% endif %}
+        </div>
+        <div>
+          <b>{{ p.project}}</b>
+          <p>
+            {{p.blurb}} ({{p.start}})
+          </p>
+          <p>
+            <a href="{{p.externalLink}}" class="external">read more</a>
+          </p>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+
+
+
+
+
+
+</div>
