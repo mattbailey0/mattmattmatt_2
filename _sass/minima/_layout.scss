@@ -344,6 +344,9 @@
     padding: 0 0 1rem 0;
     margin: 0 0 1rem 0;
     border-bottom:1px solid #e8e8e8;
+    @include media-query($on-palm) {
+      grid-template-columns:2fr 6fr;
+    }
 
     div{
       padding-right:1rem;
@@ -364,12 +367,14 @@
  */
 .about-content {
     display:inline-grid;
-    grid-template-columns:3fr 6fr;
+    grid-template-columns:3fr 5fr;
     grid-gap:5px;
     padding: 0 0 1rem 0;
     margin: 0 0 1rem 0;
     border-bottom: none;
-
+    @include media-query($on-palm) {
+      grid-template-columns:4fr 4fr;
+    }
     div{
       padding-right:1rem;
       img {
@@ -397,13 +402,19 @@
     padding: 0 0 1rem 0;
     margin: 0 0 1rem 0;
     border-bottom:1px solid #e8e8e8;
+    @include media-query($on-palm) {
+      grid-template-columns:1fr;
 
+    }
     div{
       padding-right:1rem;
       img {
         //float:left;
         max-width:100%;
         margin: 0;
+        @include media-query($on-palm) {
+          margin-bottom: 1rem;
+        }
       }
     }
 
@@ -425,7 +436,9 @@
     padding: 0 0 1rem 0;
     margin: 0 0 1rem 0;
     border-bottom:1px solid #e8e8e8;
-
+    @include media-query($on-palm) {
+      grid-template-columns:2fr 6fr;
+    }
     div{
       padding-right:1rem;
       img {
@@ -453,7 +466,9 @@
     padding: 0 0 1rem 0;
     margin: 0 0 1rem 0;
     border-bottom:1px solid #e8e8e8;
-
+    @include media-query($on-palm) {
+      grid-template-columns:2fr 6fr;
+    }
     div{
       padding-right:1rem;
       img {
