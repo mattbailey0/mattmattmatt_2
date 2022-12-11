@@ -12,36 +12,35 @@ layout: default
   {%- if site.posts.size > 0 -%}
 
 
-<div style="display:inline-grid;grid-template-columns:repeat(3,1fr);grid-gap:30px;padding-top:5px;">
-  {%- for post in site.posts -%}
-    {%- if post.categories contains "music" or post.categories contains "art" -%}
-    <div style=" ">
+<div>
+  <ul class="post-list art-list">
+    {%- for post in site.posts -%}
+      {%- if post.categories contains "music" or post.categories contains "art" -%}
+        <li class="art-row">
+          <div>
+            {%- if post.img -%}
+              <img src="/assets/img/{{post.img}}" class="art-img-tile" />
+              {%- elsif post.vid-preview -%}
+                <img src="/assets/video/{{post.vid-preview}}" class="art-img-tile" />
+            {%- endif -%}
+            <h2>
+              <a class="post-link" href="{{ post.url | relative_url }}">
+                {%- if post.categories contains "art" -%}
+                ಠ_ಠ&nbsp;&nbsp;
+                {%- endif -%}
+                {%- if post.categories contains "music" -%}
+                ♩&nbsp;
+                {%- endif -%}
+                {{ post.title | escape }}
+              </a>
+            </h2>
+            {{ post.content | truncatewords:20 }}
 
-
-      {%- if post.img -%}
-        <img src="/assets/img/{{post.img}}" class="art-img-tile" />
-      {%- elsif post.vid-preview -%}
-        <img src="/assets/video/{{post.vid-preview}}" class="art-img-tile" />
+          </div>
+        </li>
       {%- endif -%}
-      <!-- {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>-->
-   <h2>
-        <a class="post-link" href="{{ post.url | relative_url }}">
-          {%- if post.categories contains "art" -%}
-          ಠ_ಠ&nbsp;&nbsp;
-          {%- endif -%}
-          {%- if post.categories contains "music" -%}
-          ♩&nbsp;
-          {%- endif -%}
-          {{ post.title | escape }}
-        </a>
-      </h2>
-      {{ post.content | truncatewords:20 }}
-
-    </div>
-  {%- endif -%}
-  {%- endfor -%}
-
+    {%- endfor -%}
+  </ul>
 
 </div>
 
