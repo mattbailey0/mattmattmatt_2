@@ -39,6 +39,16 @@
   .page-link {
     color: $text-color;
     line-height: $base-line-height;
+    .page-link-icon {
+      // Gaps between nav items, but not on the last one
+      &:not(:last-child) {
+        margin-right: 5px;
+      }
+      .svg-icon {
+        color:#4a4a4a;
+        padding-top: 2px;
+      }
+    }
 
     // Gaps between nav items, but not on the last one
     &:not(:last-child) {
@@ -97,6 +107,8 @@
       }
       margin-left: 20px;
     }
+
+
   }
 }
 
