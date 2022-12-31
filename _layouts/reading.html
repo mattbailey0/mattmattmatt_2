@@ -98,12 +98,10 @@ TODO
         {% if b.Authors and b.Authors != "" and b.Authors != nil %}
           {% assign authors = b.Authors | split: "|" %}
           {% for a in authors %}
-            {% assign authorLastInitial = a | split: " " | last | slice: 0,1 | downcase %}
+            {% assign authorLastInitial = a | slice: 0,1 | downcase %}
             {% for af in authorsFilter %}
-
               {% if authorLastInitial == af  %}
-                {% assign a = a | split: "," %}
-                {% assign authorsIndex = authorsIndex | append: a | append: ","  %}
+                {% assign authorsIndex = authorsIndex | append: a | append: ','  %}
               {% endif %}
             {% endfor %}
           {% endfor %}
@@ -111,12 +109,14 @@ TODO
       {% endfor %}
 
       <!-- now get authors from goodreads -->
-      {% for b in site.data.goodreads %}
+      
+        {% for b in site.data.goodreads %}
         {% if b.ExclusiveShelf == "read" %}
-            {% assign authorLastInitial = b.Author | split: " " | last | slice: 0,1 | downcase %}
+            {% assign authorLastInitial = b.AuthorLF | slice: 0,1 | downcase %}
             {% for af in authorsFilter %}
               {% if authorLastInitial == af %}
-                {% assign authorsIndex = authorsIndex | append: b.Author | append: ","  %}
+                {% assign aLF = b.AuthorLF | remove: "," %}
+                {% assign authorsIndex = authorsIndex | append: aLF | append: ","  %}
               {% endif %}
             {% endfor %}
         {% endif %}
@@ -128,8 +128,9 @@ TODO
 
     <!-- now build view, including finding relevant books -->
     {% for ai in authorsIndex %}
+      
     <div style="" class="book-author-row">
-      <h2>{{ ai }}</h2>
+      <h2>{{ ai | replace_first: " ", ", " }}</h2>
 
       <!-- first add rows for post-goodreads -->
       {% for b in site.data.reading %}
@@ -168,10 +169,33 @@ TODO
                 {%- if b.Authors -%}
                   <br/>
                   {% assign authors = b.Authors | split: "|" %}
-                    {% for a in authors %}
-                      {{ a }}<br/>
-                    {% endfor %}
-                {%- endif -%}
+                    {% if authors.size > 1 %}
+                      w/
+                      {% for a in authors %}
+                        {% assign aa = a | replace_first: " ", ", " %}
+                        {% if a != ai %}
+                          {% assign aa = a | split: " " %}
+                          {% assign al = aa[0] %}
+                          {% assign af = "" %}
+                          {% assign at = "" %}
+                          {% assign foo = aa.size | minus: 1 %} <!-- this annoyingly has to be done this way instead of inline to help liquid with casting-->
+                          {% for i in (1..foo) %}  
+                            {% assign firstInitial = aa[i] | slice: 0,1 %}
+                            {% if firstInitial == "(" %}
+                              {% if i==1 %}
+                                {% assign at = at | append: " " %}
+                              {% endif %}
+                              {% assign at = at | append: aa[i] %}
+                            {% else %}
+                              {% assign af = af | append: aa[i] %}
+                              {% assign af = af | append: " " %}
+                            {% endif %}
+                          {% endfor %}
+                          {{ af }}{{ al }}{% if at and at != "" and at != nil %} {{ at }}{% endif %}{% if a != authors.last %},{% endif %}
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  {%- endif -%}
                 {% assign rpost = site.posts | where: "isbn13", isbn | first %}
                 {%- if rpost -%}
                   <p>
@@ -197,7 +221,8 @@ TODO
     <!-- now add rows for goodreads -->
     {% for b in site.data.goodreads %}
       {% if b.ExclusiveShelf == "read" %}
-        {% if b.Author == ai %}
+        {% assign bAuth = b.AuthorLF | remove: "," %}
+        {% if bAuth == ai %}
         <div style="" class="book-row">
           <span class="book-cover">
             {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
@@ -313,10 +338,39 @@ TODO
           {%- if b.Authors -%}
             <br/>
             {% assign authors = b.Authors | split: "|" %}
+            {% if authors.size > 0 %}
               {% for a in authors %}
-                {{ a }}<br/>
+                {% assign aa = a | replace_first: " ", ", " %}
+                {% if a != ai %}
+                  {% assign aa = a | split: " " %}
+                  {% assign al = aa[0] %}
+                  {% assign af = "" %}
+                  {% assign at = "" %}
+                  {% assign foo = aa.size | minus: 1 %} <!-- this annoyingly has to be done this way instead of inline to help liquid with casting-->
+                  {% for i in (1..foo) %}  
+                    {% assign firstInitial = aa[i] | slice: 0,1 %}
+                    {% if firstInitial == "(" %}
+                      {% if i==1 %}
+                        {% assign at = at | append: " " %}
+                      {% endif %}
+                      {% assign at = at | append: aa[i] %}
+                    {% else %}
+                      {% assign af = af | append: aa[i] %}
+                      {% assign af = af | append: " " %}
+                    {% endif %}
+                  {% endfor %}
+                  {{ af }}{{ al }}{% if at and at != "" and at != nil %} {{ at }}{% endif %}{% if a != authors.last %},{% endif %}
+                {% endif %}
               {% endfor %}
+            {% endif %}
           {%- endif -%}
+
+          
+
+
+
+
+
           {% assign rpost = site.posts | where: "isbn13", isbn | first %}
           {%- if rpost -%}
             <p>
