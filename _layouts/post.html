@@ -34,18 +34,27 @@ layout: default
     {%- if page.categories contains "reading" -%}
       {%- assign book = site.data.reading | where: "ISBN13", page.isbn13 | first -%}
         <div class="post-img-full">
-          <img src="/assets/img/book-covers/{{book.ISBN13}}.jpg" class="post-img" />
-          <!--<img src="http://covers.openlibrary.org/b/isbn/{{ book.ISBN13 }}-L.jpg" class="post-img" />-->
-        </div>
-        <div class="post-reading-details">
-          <a href= "https://bookshop.org/books?keywords={{ book.ISBN13 }}"">{{ book.Title }}</a>
-          <br/>
-          {{ book.Author }}
-          <br/>
-          {%- for r in (1..book.MyRating) -%}
-            &#10026;&nbsp;
-          {%- endfor -%}
-        </div>
+        {% assign bkpath = '/assets/img/book-covers/' | append: page.isbn13 | append: '-M.jpg' %}
+        {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+        {% if bkimg %}
+          <img src="{{bkpath}}" class="post-img" />
+        {% else %}
+          {% assign bkpath = '/assets/img/book-covers/' | append: page.isbn13 | append: '-M.webp' %}
+          {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+          {% if bkimg %}
+            <img src="{{bkpath}}" class="post-img" />
+          {% endif %}
+        {% endif %}
+      </div>
+      <div class="post-reading-details">
+        <a href= "https://bookshop.org/books?keywords={{ book.ISBN13 }}"">{{ book.Title }}</a>
+        <br/>
+        {{ book.Author }}
+        <br/>
+        {%- for r in (1..book.MyRating) -%}
+          &#10026;&nbsp;
+        {%- endfor -%}
+      </div>
     {%- endif -%}
 
     {{ content }}

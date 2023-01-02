@@ -48,8 +48,18 @@ layout: default
         {%- endif -%}
 
         {%- if post.isbn13 -%}
-          <img src="/assets/img/book-covers/{{post.isbn13}}-M.jpg" class="post-img" />
-          <!--<img src="http://covers.openlibrary.org/b/isbn/{{ post.isbn13 }}-M.jpg" class="post-img-hero" />-->
+          {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '-M.jpg' %}
+          {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+          {% if bkimg %}
+            <img src="{{bkpath}}" class="post-img" />
+          {% else %}
+            {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '-M.webp' %}
+            {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+            {% if bkimg %}
+              <img src="{{bkpath}}" class="post-img" />
+            {% endif %}
+          {% endif %}
+        
         {%- endif -%}
         <span>
           {%- if post.categories contains "short" -%}
