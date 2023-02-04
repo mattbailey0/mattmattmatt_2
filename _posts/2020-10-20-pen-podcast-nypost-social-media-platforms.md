@@ -2,7 +2,7 @@
 layout: post
 title:  "The PEN Pod: How Social Media Platforms Are Moderating Election Disinformation"
 date:   2020-10-20 00:00:01 -0500
-categories: blog short article
+categories: blog short article audio
 link: https://pen.org/the-pen-pod-matt-bailey/
 img: /logos/pen-america.png
 ---

@@ -14,7 +14,6 @@ TODO
     - sorting of books by title
 - total counts at bottom of page - fix hacked logic
 - multiple author names in bookrows & weirdness
-- author photos??
 
 --->
 
@@ -283,6 +282,8 @@ TODO
 
 <!------------------------ BELOW THIS LINE NEEDS REFACTORING ------------------------>
 
+
+<!-- IF YEARS VIEW -->
   <!---------------------------------------->
   <!-- FIRST WE DO POST-GOODREADS RECORDS -->
 
@@ -320,9 +321,6 @@ TODO
               {% endif %}
             {% endif %}
           {%- endif -%}
-        </span>
-        <span class="book-date">
-          {{ b.DateRead | date: "%B %d %Y" }}
         </span>
         <span class="book-title">
           {%- if b.externalLink -%}
@@ -365,12 +363,6 @@ TODO
             {% endif %}
           {%- endif -%}
 
-          
-
-
-
-
-
           {% assign rpost = site.posts | where: "isbn13", isbn | first %}
           {%- if rpost -%}
             <p>
@@ -379,6 +371,9 @@ TODO
               <a href="{{ rpost.url }}">more &gt;&gt;</a>&nbsp;
             </p>
           {%- endif -%}
+        </span>
+        <span class="book-date">
+          {{ b.DateRead | date: "%B %d %Y" }}
         </span>
         <span class="book-rating">
           {%- for r in (1..b.MyRating) -%}
@@ -428,13 +423,6 @@ TODO
           <img src="/assets/img/book-covers/{{ isbn | escape }}-M.jpg" />
         {%- endif -%}
       </span>
-      <span class="book-date">
-        {%- if b.DateRead -%}
-          {{ b.DateRead | date: "%B %d %Y" }}
-        {%- else -%}
-          {{ b.DateAdded | date: "%B %d %Y" }}
-        {%- endif -%}
-      </span>
       <span class="book-title">
         {%- if isbn -%}
           <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
@@ -457,6 +445,13 @@ TODO
             <br/>
             {{ b.MyReview }}
           </p>
+        {%- endif -%}
+      </span>
+      <span class="book-date">
+        {%- if b.DateRead -%}
+          {{ b.DateRead | date: "%B %d %Y" }}
+        {%- else -%}
+          {{ b.DateAdded | date: "%B %d %Y" }}
         {%- endif -%}
       </span>
       <span class="book-rating">
