@@ -2,91 +2,101 @@
 layout: default
 ---
 
-<div class="home">
+<div>
   {%- if page.title -%}
-   <h1 class="page-heading">{{ page.title }}</h1>
-  {%- endif -%}
+  <h1 class="page-heading">{{ page.title }}</h1>
+ {%- endif -%}
+ {{ content }}
+</div>
 
-  {{ content }}
-
-  {%- if site.posts.size > 0 -%}
-
-
-    <ul class="post-list">
+<div class="home with-link-roll">
 
 
-      {%- for post in site.posts -%}
+  <div class="home-side">
+    {%- include link-roll.html -%}
+  </div>
 
-      <li class="post-preview">
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3>
-          {%- unless post.categories contains "short" -%}
-            <a class="post-link" href="{{ post.url | relative_url }}">
-          {%- endunless -%}
-            {%- if post.categories contains "art" -%}
-              ಠ_ಠ&nbsp;&nbsp;
+
+
+  <div class="home-main">
+    {%- if site.posts.size > 0 -%}
+      <ul class="post-list">
+
+
+        {%- for post in site.posts -%}
+        {%- unless post.categories contains "micro" -%}
+        <li class="post-preview">
+          {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+          <span class="post-meta">{{ post.date | date: date_format }}</span>
+          <h3>
+            {%- unless post.categories contains "short" -%}
+              <a class="post-link" href="{{ post.url | relative_url }}">
+            {%- endunless -%}
+              {%- if post.categories contains "art" -%}
+                ಠ_ಠ&nbsp;&nbsp;
+              {%- endif -%}
+              {%- if post.categories contains "music" -%}
+                ♩&nbsp;
+              {%- endif -%}
+              {{ post.title | escape }}
+            {%- unless post.categories contains "short" -%}
+              </a>
+            {%- endunless -%}
+          </h3>
+          {%- if post.img -%}
+            {%- if post.categories contains "short" -%}
+              <img src="/assets/img/{{post.img}}" class="post-img-hero-small" />
+            {%- else -%}
+              <img src="/assets/img/{{post.img}}" class="post-img-hero" />
             {%- endif -%}
-            {%- if post.categories contains "music" -%}
-              ♩&nbsp;
-            {%- endif -%}
-            {{ post.title | escape }}
-          {%- unless post.categories contains "short" -%}
-            </a>
-          {%- endunless -%}
-        </h3>
-        {%- if post.img -%}
-          {%- if post.categories contains "short" -%}
-            <img src="/assets/img/{{post.img}}" class="post-img-hero-small" />
-          {%- else -%}
-            <img src="/assets/img/{{post.img}}" class="post-img-hero" />
           {%- endif -%}
-        {%- endif -%}
 
-        {%- if post.vid-preview -%}
-            <img src="/assets/video/{{post.vid-preview}}" class="post-img-hero" />
-        {%- endif -%}
+          {%- if post.vid-preview -%}
+              <img src="/assets/video/{{post.vid-preview}}" class="post-img-hero" />
+          {%- endif -%}
 
-        {%- if post.isbn13 -%}
-          {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '-M.jpg' %}
-          {% assign bkimg = site.static_files | where: "path",bkpath | first %}
-          {% if bkimg %}
-            <img src="{{bkpath}}" class="post-img" />
-          {% else %}
-            {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '-M.webp' %}
+          {%- if post.isbn13 -%}
+            {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '-M.jpg' %}
             {% assign bkimg = site.static_files | where: "path",bkpath | first %}
             {% if bkimg %}
               <img src="{{bkpath}}" class="post-img" />
+            {% else %}
+              {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '-M.webp' %}
+              {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+              {% if bkimg %}
+                <img src="{{bkpath}}" class="post-img" />
+              {% endif %}
             {% endif %}
-          {% endif %}
-        
-        {%- endif -%}
-        <span>
-          {%- if post.categories contains "short" -%}
-            {{ post.content }}
-            {%- if post.link -%}
-              {%- if post.categories contains "audio" -%}
-                <a href="{{ post.link }}" class="external">listen here</a>
-              {%- elsif post.categories contains "video" -%}
-                <a href="{{ post.link }}" class="external">watch it here</a>
-              {%- else -%}
-                <a href="{{ post.link }}" class="external">read more</a>
-              {%- endif -%}
-            {%- endif -%}
-          {%- else -%}
-            {{ post.content | truncatewords:50 }}
-            <br/><br/><a href="{{ post.url | relative_url }}">read more &gt;&gt;</a>
+          
           {%- endif -%}
+          <span>
+            {%- if post.categories contains "short" -%}
+              {{ post.content }}
+              {%- if post.link -%}
+                {%- if post.categories contains "audio" -%}
+                  <a href="{{ post.link }}" class="external">listen here</a>
+                {%- elsif post.categories contains "video" -%}
+                  <a href="{{ post.link }}" class="external">watch it here</a>
+                {%- else -%}
+                  <a href="{{ post.link }}" class="external">read more</a>
+                {%- endif -%}
+              {%- endif -%}
+            {%- else -%}
+              {{ post.content | truncatewords:50 }}
+              <br/><br/><a href="{{ post.url | relative_url }}">read more &gt;&gt;</a>
+            {%- endif -%}
 
-        </span>
+          </span>
 
-        <li class="post-footer"></li>
-      </li>
+          <li class="post-footer"></li>
+        </li>
+        {%- endunless -%}
+        {%- endfor -%}
+      </ul>
 
-      {%- endfor -%}
-    </ul>
 
+    {%- endif -%}
 
-  {%- endif -%}
+  </div>
 
 </div>

@@ -10,40 +10,36 @@ layout: default
   {{ content }}
 
   {%- if site.posts.size > 0 -%}
+  <div>
+    <ul class="post-list art-list">
+      {%- for post in site.posts -%}
+        {%- if post.categories contains "music" or post.categories contains "art" -%}
+          <li class="art-row">
+            <div>
+              {%- if post.img -%}
+                <img src="/assets/img/{{post.img}}" class="art-img-tile" />
+                {%- elsif post.vid-preview -%}
+                  <img src="/assets/video/{{post.vid-preview}}" class="art-img-tile" />
+              {%- endif -%}
+              <h2>
+                <a class="post-link" href="{{ post.url | relative_url }}">
+                  {%- if post.categories contains "art" -%}
+                  ಠ_ಠ&nbsp;&nbsp;
+                  {%- endif -%}
+                  {%- if post.categories contains "music" -%}
+                  ♩&nbsp;
+                  {%- endif -%}
+                  {{ post.title | escape }}
+                </a>
+              </h2>
+              {{ post.content | truncatewords:20 }}
 
-
-<div>
-  <ul class="post-list art-list">
-    {%- for post in site.posts -%}
-      {%- if post.categories contains "music" or post.categories contains "art" -%}
-        <li class="art-row">
-          <div>
-            {%- if post.img -%}
-              <img src="/assets/img/{{post.img}}" class="art-img-tile" />
-              {%- elsif post.vid-preview -%}
-                <img src="/assets/video/{{post.vid-preview}}" class="art-img-tile" />
-            {%- endif -%}
-            <h2>
-              <a class="post-link" href="{{ post.url | relative_url }}">
-                {%- if post.categories contains "art" -%}
-                ಠ_ಠ&nbsp;&nbsp;
-                {%- endif -%}
-                {%- if post.categories contains "music" -%}
-                ♩&nbsp;
-                {%- endif -%}
-                {{ post.title | escape }}
-              </a>
-            </h2>
-            {{ post.content | truncatewords:20 }}
-
-          </div>
-        </li>
-      {%- endif -%}
-    {%- endfor -%}
-  </ul>
+            </div>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+  {%- endif -%}
 
 </div>
-
-
-
-  {%- endif -%}
