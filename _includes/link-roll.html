@@ -4,17 +4,20 @@
 
 
     <ul class="post-list">
+      {% assign n = 0 %}
       {%- for post in site.posts -%}
-      {% if post.categories contains "micro" %}
+      {% if post.categories contains "micro" and n < 5 %}
+        {% assign n = n | plus: 1 %}
         <li class="post-preview">
           {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-          {{ post.date | date: date_format }} - {{ post.content }} 
+          {{ post.date | date: date_format }} - <span class="link-roll-title">{{post.title}}</span>
+          {{ post.content }} 
         </li>
       {%- endif -%}
       {%- endfor -%}
     </ul>
 
-
+    <div class="button-pink"><a href="/links-and-notes/">more notes &gt;&gt;</a></div>
   {%- endif -%}
 
 
