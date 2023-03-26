@@ -11,16 +11,13 @@ layout: default
 
   {%- if site.posts.size > 0 -%}
   <div>
-    <ul class="post-list art-list">
+    <ul class="post-list links-notes-list">
       {%- for post in site.posts -%}
         {%- if post.categories contains "micro" -%}
-          <li class="art-row">
+          <li class="links-notes-row">
             <div>
-              <h2>
-                <a class="post-link" href="{{ post.url | relative_url }}">
-                    {{ post.title | escape }}
-                </a>
-              </h2>
+              {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+              {{ post.date | date: date_format }} -
               {{ post.content }}
             </div>
           </li>
