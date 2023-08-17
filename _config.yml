@@ -39,6 +39,9 @@ collections:
   readingAuthors:
     output: true
     permalink: /reading/authors/:name
+  postYears:
+    output: true
+    permalink: /posts/years/:name
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

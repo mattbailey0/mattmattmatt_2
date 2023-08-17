@@ -1,0 +1,150 @@
+---
+layout: default
+---
+
+<!-- what years of posts should be displayed? -->
+{% if page.displayYear %}
+  {% assign yearFilter = page.displayYear | times: 1 %}
+{% else %}
+  {% assign yearFilter = site.postYears.last.displayYear | times: 1 %}  
+{% endif %}
+{% assign yearLast = site.postYears.first.displayYear | times: 1 %}
+
+<div class="home">
+  {%- if page.title -%}
+    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  Heyy look, it's all my posts by year. 
+  {{ content }}
+  <br/><br/>
+
+  <!-- SECOND LEVEL NAV -->
+
+  <div style="grid-template-columns:repeat(1,1fr);grid-gap:30px;padding-top:5px;">
+  {% if yearFilter and yearFilter != "" and yearFilter != nil %}
+     
+      {% for py in site.postYears reversed %}
+        {% if py.displayYear != yearFilter %}
+          <a href="{{py.url}}">
+        {% endif %}
+        {{ py.displayYear }}
+        {% if py.displayYear != yearFilter %}
+          </a>
+        {% endif %}
+        {% if py.displayYear != yearLast %}
+          |
+        {% endif %}
+      {% endfor %}
+    
+    <br/><br/>
+  {% endif %}        
+  </div>
+ 
+
+  <!-- CONTENT -->
+  
+
+  <div class="home-main">
+    {%- if site.posts.size > 0 -%}
+      <ul class="post-list">
+        {%- for post in site.posts -%}
+        
+
+       
+        
+        <!-- IF YEARS -->
+        {% if yearFilter and yearFilter != "" and yearFilter != nil %}
+          {%- unless post.categories contains "micro" -%}
+            {% assign yearPosted = post.date | date: "%Y" | times: 1 %}
+            {% if yearPosted == yearFilter %}
+              {% assign addRow = 1 %}
+            {% endif %}
+          {%- endunless -%}
+        {% endif %}
+
+        <!-- now actually build the content -->
+        {% if addRow == 1 %}
+          <li class="post-preview">
+            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+            <span class="post-meta">{{ post.date | date: date_format }}</span>
+            <h3>
+              {%- unless post.categories contains "short" -%}
+                <a class="post-link" href="{{ post.url | relative_url }}">
+              {%- endunless -%}
+                {%- if post.categories contains "art" -%}
+                  ಠ_ಠ&nbsp;&nbsp;
+                {%- endif -%}
+                {%- if post.categories contains "music" -%}
+                  ♩&nbsp;
+                {%- endif -%}
+                {{ post.title | escape }}
+              {%- unless post.categories contains "short" -%}
+                </a>
+              {%- endunless -%}
+            </h3>
+            {%- if post.img -%}
+              {%- if post.categories contains "short" -%}
+                <img src="/assets/img/{{post.img}}" class="post-img-hero-small" />
+              {%- else -%}
+                <img src="/assets/img/{{post.img}}" class="post-img-hero" />
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- if post.vid-preview -%}
+                <img src="/assets/video/{{post.vid-preview}}" class="post-img-hero" />
+            {%- endif -%}
+
+            {%- if post.isbn13 -%}
+              {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '-M.jpg' %}
+              {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+              {% if bkimg %}
+                <img src="{{bkpath}}" class="post-img" />
+              {% else %}
+                {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '-M.webp' %}
+                {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+                {% if bkimg %}
+                  <img src="{{bkpath}}" class="post-img" />
+                {% endif %}
+              {% endif %}
+            
+            {%- endif -%}
+            <span>
+              {%- if post.categories contains "short" -%}
+                {{ post.content }}
+                {%- if post.link -%}
+                  {%- if post.categories contains "audio" -%}
+                    <a href="{{ post.link }}" class="external">listen here</a>
+                  {%- elsif post.categories contains "video" -%}
+                    <a href="{{ post.link }}" class="external">watch it here</a>
+                  {%- else -%}
+                    <a href="{{ post.link }}" class="external">read more</a>
+                  {%- endif -%}
+                {%- endif -%}
+              {%- else -%}
+                {{ post.content | truncatewords:50 }}
+                <br/><br/><a href="{{ post.url | relative_url }}">read more &gt;&gt;</a>
+              {%- endif -%}
+
+            </span>
+
+            <li class="post-footer"></li>
+          </li>
+          {% assign addRow = 0 %}
+        {% endif %}
+        {%- endfor -%}
+      </ul>
+
+
+    {%- endif -%}
+
+</div>
+
+
+
+
+
+
+
+
+
