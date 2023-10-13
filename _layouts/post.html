@@ -34,12 +34,12 @@ layout: default
     {%- if page.categories contains "reading" -%}
       {%- assign book = site.data.reading | where: "ISBN13", page.isbn13 | first -%}
         <div class="post-img-full">
-        {% assign bkpath = '/assets/img/book-covers/' | append: page.isbn13 | append: '-M.jpg' %}
+        {% assign bkpath = '/assets/img/book-covers/' | append: page.isbn13 | append: '.jpg' %}
         {% assign bkimg = site.static_files | where: "path",bkpath | first %}
         {% if bkimg %}
           <img src="{{bkpath}}" class="post-img" />
         {% else %}
-          {% assign bkpath = '/assets/img/book-covers/' | append: page.isbn13 | append: '-M.webp' %}
+          {% assign bkpath = '/assets/img/book-covers/' | append: page.isbn13 | append: '.webp' %}
           {% assign bkimg = site.static_files | where: "path",bkpath | first %}
           {% if bkimg %}
             <img src="{{bkpath}}" class="post-img" />
