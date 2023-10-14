@@ -205,14 +205,17 @@ TODO
                 </p>
               {%- endif -%}
               </span>
-              <span class="book-date">
-                {{ b.DateRead | date: "%B %d %Y" }}
-              </span>
               <span class="book-rating">
+                {{ b.DateRead | date: "%B %d %Y" }}
+                <br/>
                 {%- for r in (1..b.MyRating) -%}
                   &#10026;&nbsp;
                 {%- endfor -%}
+                <!--<span class="book-date">-->
+                 
+                <!--</span>-->
               </span>
+
           </div>
         {% endif %}
       {% endfor %}
@@ -265,15 +268,14 @@ TODO
               </p>
             {%- endif -%}
           </span>
-          <span class="book-date">
-            {%- if b.DateRead -%}
-              {{ b.DateRead | date: "%B %d %Y" }}
-            {%- else -%}
-              {{ b.DateAdded | date: "%B %d %Y" }}
-            {%- endif -%}
-          </span>
           <span class="book-rating">
-            {%- for r in (1..b.MyRating) -%}
+            {%- if b.DateRead -%}
+            {{ b.DateRead | date: "%B %d %Y" }}
+          {%- else -%}
+            {{ b.DateAdded | date: "%B %d %Y" }}
+          {%- endif -%}
+          <br/>
+          {%- for r in (1..b.MyRating) -%}
               &#10026;&nbsp;
             {%- endfor -%}
           </span>
@@ -425,10 +427,11 @@ TODO
           </p>    
     
         </span>
-        <span class="book-date">
-          {{ b.DateRead | date: "%d %b %Y" }}
-        </span>
+
+          
         <span class="book-rating">
+          {{ b.DateRead | date: "%d %b %Y" }}
+          <br/>
           {%- for r in (1..b.MyRating) -%}
             &#10026;&nbsp;
           {%- endfor -%}
@@ -557,15 +560,15 @@ TODO
         </p>  
 
       </span>
-      <span class="book-date">
-        {%- if b.DateRead -%}
-          {{ b.DateRead | date: "%d %b %Y" }}
-        {%- else -%}
-          {{ b.DateAdded | date: "%d %b %Y" }}
-        {%- endif -%}
-      </span>
+
       <span class="book-rating">
-        {%- for r in (1..b.MyRating) -%}
+        {%- if b.DateRead -%}
+        {{ b.DateRead | date: "%d %b %Y" }}
+      {%- else -%}
+        {{ b.DateAdded | date: "%d %b %Y" }}
+      {%- endif -%}
+      <br/>
+      {%- for r in (1..b.MyRating) -%}
           &#10026;&nbsp;
         {%- endfor -%}
       </span>

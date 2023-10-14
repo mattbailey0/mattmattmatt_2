@@ -59,15 +59,15 @@ layout: default
           {%- endif -%}
 
           {%- if post.isbn13 -%}
-            {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '-M.jpg' %}
+            {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '.jpg' %}
             {% assign bkimg = site.static_files | where: "path",bkpath | first %}
             {% if bkimg %}
-              <img src="{{bkpath}}" class="post-img" />
+              <img src="{{bkpath}}" class="post-img-hero-small" />
             {% else %}
-              {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '-M.webp' %}
+              {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '.webp' %}
               {% assign bkimg = site.static_files | where: "path",bkpath | first %}
               {% if bkimg %}
-                <img src="{{bkpath}}" class="post-img" />
+                <img src="{{bkpath}}" class="post-img-hero-small" />
               {% endif %}
             {% endif %}
           
