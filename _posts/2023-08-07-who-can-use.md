@@ -10,7 +10,7 @@ Who Can Use? lets you explore color combinations and how useable they are for pe
 A couple of related resources:
 - [Open Accessibility Conformance Report - an effort to create an open standard for government tech vendors to document the accessibility of their products](https://accessibility.civicactions.com/posts/CivicActions-Creates-Open-Product-Accessibility-Template)
 - [ITI VPAT Accessibility Conformance Report standard](https://www.itic.org/policy/accessibility/vpat)
-<br/><br/>
+<br/>
  
 
 

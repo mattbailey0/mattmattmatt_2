@@ -6,7 +6,7 @@ categories: micro
 ---
 
 An important tool to help understand your level of exposure via browser fingerprinting and related privacy vulnerabilities: ["Cover Your Tracks"](https://coveryourtracks.eff.org/)
-<br/><br/>
+<br/>
 
 
 

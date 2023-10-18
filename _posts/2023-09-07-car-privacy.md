@@ -6,7 +6,7 @@ categories: micro
 ---
 
 Your car is a computer, your car is a surveillance nightmare. Mozilla, receipts: ["It’s Official: Cars Are the Worst Product Category We Have Ever Reviewed for Privacy"](https://foundation.mozilla.org/en/privacynotincluded/articles/its-official-cars-are-the-worst-product-category-we-have-ever-reviewed-for-privacy/)
-<br/><br/>
+<br/>
 
 
 
