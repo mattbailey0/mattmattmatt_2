@@ -10,8 +10,26 @@
         {% assign n = n | plus: 1 %}
         <li class="post-preview">
           {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-          {{ post.date | date: date_format }} - {{ post.content }} 
+ 
+          {%- if post.isbn13 -%}
+          {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '.jpg' %}
+          {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+          {% if bkimg %}
+            <img src="{{bkpath}}" class="post-img-hero-reading" />
+          {% else %}
+            {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '.webp' %}
+            {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+            {% if bkimg %}
+              <img src="{{bkpath}}" class="post-img-hero-reading" />
+            {% endif %}
+          {% endif %}
+        {%- endif -%}
+        <span class="post-preview-content-reading">
+          {{ post.date | date: date_format }} - {{ post.title }}
+          {{ post.content }} 
+      </span>
         </li>
+        <li class="post-footer"></li>
       {%- endif -%}
       {%- endfor -%}
     </ul>

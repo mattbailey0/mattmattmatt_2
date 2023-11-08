@@ -62,12 +62,12 @@ layout: default
             {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '.jpg' %}
             {% assign bkimg = site.static_files | where: "path",bkpath | first %}
             {% if bkimg %}
-              <img src="{{bkpath}}" class="post-img-hero-small" />
+              <img src="{{bkpath}}" class="post-img-hero-reading" />
             {% else %}
               {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '.webp' %}
               {% assign bkimg = site.static_files | where: "path",bkpath | first %}
               {% if bkimg %}
-                <img src="{{bkpath}}" class="post-img-hero-small" />
+                <img src="{{bkpath}}" class="post-img-hero-reading" />
               {% endif %}
             {% endif %}
           
