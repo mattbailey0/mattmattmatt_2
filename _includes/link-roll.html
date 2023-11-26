@@ -25,7 +25,7 @@
           {% endif %}
         {%- endif -%}
         <span class="post-preview-content-reading">
-          {{ post.date | date: date_format }} - {{ post.title }}
+          <span class="title">{{ post.date | date: date_format }} - {{ post.title }} {% if post.book-author %}by {{post.book-author}}{% endif %}</span>
           {{ post.content }} 
       </span>
         </li>
