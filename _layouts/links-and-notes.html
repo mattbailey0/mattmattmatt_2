@@ -17,6 +17,22 @@ layout: default
           <li class="links-notes-row">
             <div>
               {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+              {%- if post.isbn13 -%}
+              {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '.jpg' %}
+              {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+              {% if bkimg %}
+                <img src="{{bkpath}}" class="post-img-hero-reading" />
+              {% else %}
+                {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '.webp' %}
+                {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+                {% if bkimg %}
+                  <img src="{{bkpath}}" class="post-img-hero-reading" />
+                {% endif %}
+              {% endif %}
+            
+            {%- endif -%}
+              
+              
               {{ post.date | date: date_format }} -
               {{ post.content }}
             </div>

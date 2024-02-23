@@ -39,6 +39,9 @@ collections:
   readingAuthors:
     output: true
     permalink: /reading/authors/:name
+  readingTitles:
+    output: true
+    permalink: /reading/titles/:name
   postYears:
     output: true
     permalink: /posts/years/:name

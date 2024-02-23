@@ -611,6 +611,22 @@
  * Reading List
  */
 
+.reading-nav-second {
+  grid-template-columns:repeat(1,1fr);
+  grid-gap:30px;padding-top:5px;
+  a:active {
+    color: white;
+    background: #2a7ae2;
+    padding: 0px 1rem;
+  }
+}
+
+.reading-nav-third {
+  grid-template-columns:repeat(1,1fr);
+  grid-gap:30px;
+  padding-top:5px; 
+}
+
 .book-author-row {
   border-bottom: 1px solid #e8e8e8;
   .book-row {
