@@ -89,6 +89,11 @@ layout: default
 
   {% comment %}
   ################## IF TITLES VIEW ##################
+    TODO: 
+    - multiple authors
+    - in authors view, should like back to titles VIEW
+    - make what view is active more obvious in second and third level nav, css
+    - 
   {% endcomment %}
   
   {% if titlesFilter and titlesFilter != "" and titlesFilter != nil %}
@@ -102,7 +107,10 @@ layout: default
           {% assign booksByTitle = booksByTitle | append: b.MyRating | append: '^'  %}  
           {% assign booksByTitle = booksByTitle | append: b.Publisher | append: '^'  %}
           {% assign booksByTitle = booksByTitle | append: b.DateRead | append: '^'  %}  
-          {% assign booksByTitle = booksByTitle | append: b.externalLink | append: '~'  %}          
+          {% assign booksByTitle = booksByTitle | append: b.externalLink | append: '^'  %}
+          {% assign authorLastInitial = b.Authors | slice: 0,1 | downcase %}
+          {% assign booksByTitle = booksByTitle | append: authorLastInitial %}
+          {% assign booksByTitle = booksByTitle | append: '~'  %}
         {% endif %}
       {% endfor %}  
     {% endfor %}
@@ -113,11 +121,15 @@ layout: default
         {% for tf in titlesFilter %}
           {% if titleFirstLetter == tf %}
             {% assign booksByTitle = booksByTitle | append: b.Title | append: '^'  %}  
-            {% assign booksByTitle = booksByTitle | append: b.Author | append: '^'  %}  
+            {% assign booksByTitle = booksByTitle | append: b.AuthorLF | append: '^'  %}  
             {% assign booksByTitle = booksByTitle | append: b.ISBN13 | append: '^'  %}
             {% assign booksByTitle = booksByTitle | append: b.MyRating | append: '^'  %}  
             {% assign booksByTitle = booksByTitle | append: b.Publisher | append: '^'  %}
-            {% assign booksByTitle = booksByTitle | append: b.DateRead | append: '~'  %}    
+            {% assign booksByTitle = booksByTitle | append: b.DateRead | append: '^'  %}  
+            {% assign booksByTitle = booksByTitle | append: "" | append: '^'  %} 
+            {% assign authorLastInitial =  b.AuthorLF | slice: 0,1 | downcase %}
+            {% assign booksByTitle = booksByTitle | append: authorLastInitial %}
+            {% assign booksByTitle = booksByTitle | append: '~'  %}   
           {% endif %}
         {% endfor %}  
       {% endif %}
@@ -154,12 +166,12 @@ layout: default
             {% elsif isbn %}
               <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
             {% endif %}
-            {{ book[0] }}
+              {{book[0]}}
             {% if isbn or book[6] %}
               </a>
             {% endif %}
             <br/>
-            {{ book[1] }}
+            <a href = "/reading/authors/{{book[7] }}/#{{ book[1] }}">{{ book[1] }}</a>
           </p>
 
           {% assign rpost = site.posts | where: "isbn13", isbn | first %} 
@@ -278,14 +290,14 @@ layout: default
 
     {% for ai in authorsIndex %}
       
-    <div style="" class="book-author-row">
+    <div style="" class="book-author-row" id="{{ ai }}">
       <h2>{{ ai  }}</h2> 
 
       {% for b in site.data.reading %}
         {% assign authorsBook = b.Authors | split: "|" %}
         {% for ab in authorsBook %}
           {% if ab == ai %}
-            <div class="book-row">
+            <div class="book-row" >
               <span class="book-cover">
                 {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
                 {%- if isbn and isbn.size == 13 -%}
