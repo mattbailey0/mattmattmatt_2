@@ -155,6 +155,12 @@ layout: default
               {% assign bkimg = site.static_files | where: "path",bkpath | first %}
               {% if bkimg %}
                 <img src="{{bkpath}}" />
+              {% else %}
+                {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '.png' %}
+                {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+                {% if bkimg %}
+                  <img src="{{bkpath}}" />
+                {% endif %}
               {% endif %}
             {% endif %}
           {% endif %}
@@ -310,6 +316,12 @@ layout: default
                     {% assign bkimg = site.static_files | where: "path",bkpath | first %}
                     {% if bkimg %}
                       <img src="{{bkpath}}" />
+                    {% else %}
+                      {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '.png' %}
+                      {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+                      {% if bkimg %}
+                        <img src="{{bkpath}}" />
+                      {% endif %}
                     {% endif %}
                   {% endif %}
                 {%- endif -%}
@@ -395,6 +407,12 @@ layout: default
                 {% assign bkimg = site.static_files | where: "path",bkpath | first %}
                 {% if bkimg %}
                   <img src="{{bkpath}}" />
+                {% else %}
+                  {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '.png' %}
+                  {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+                  {% if bkimg %}
+                    <img src="{{bkpath}}" />
+                  {% endif %}
                 {% endif %}
               {% endif %}
             {%- endif -%}
@@ -475,6 +493,12 @@ layout: default
                 {% assign bkimg = site.static_files | where: "path",bkpath | first %}
                 {% if bkimg %}
                   <img src="{{bkpath}}" />
+                {% else %}
+                  {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '.png' %}
+                  {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+                  {% if bkimg %}
+                    <img src="{{bkpath}}" />
+                  {% endif %}
                 {% endif %}
               {% endif %}
             {%- endif -%}
@@ -627,6 +651,12 @@ layout: default
             {% assign bkimg = site.static_files | where: "path",bkpath | first %}
             {% if bkimg %}
               <img src="{{bkpath}}" />
+            {% else %}
+              {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '.png' %}
+              {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+              {% if bkimg %}
+                <img src="{{bkpath}}" />
+              {% endif %}
             {% endif %}
           {% endif %}
         {%- endif -%}
