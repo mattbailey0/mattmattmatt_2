@@ -1,0 +1,28 @@
+---
+layout: default
+---
+
+<div class="home">
+  {%- if page.title -%}
+   <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+
+<h2>Interesting links from teh internet</h2>
+
+    <ul class="post-list writing-list">
+      {%- for p in site.data.biblio -%}
+
+        <li class="writing-row">
+          <div>
+            {{ p }}
+
+          </div>
+        </li>
+
+      {%- endfor -%}
+    </ul>
+
+
+</div>
