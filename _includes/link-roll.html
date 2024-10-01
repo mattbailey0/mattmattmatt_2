@@ -6,7 +6,8 @@
     <ul class="post-list">
       {% assign n = 0 %}
       {%- for post in site.posts -%}
-      {% if post.categories contains "micro" and n < 5 %}
+      {% unless post.categories contains "reading" %}
+      {% if post.categories contains "micro" and n < 15 %}
         {% assign n = n | plus: 1 %}
         <li class="post-preview">
           {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
@@ -31,6 +32,7 @@
         </li>
         <li class="post-footer"></li>
       {%- endif -%}
+      {% endunless %}
       {%- endfor -%}
     </ul>
 

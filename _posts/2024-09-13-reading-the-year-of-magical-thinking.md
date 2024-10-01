@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "The Year of Magical Thinking"
+title:  "Review - The Year of Magical Thinking"
 book-author: "Joan Didion"
 date:   2024-09-13 00:00:00 -0500
-categories: reading blog micro
+categories: reading blog
 isbn13: 9781400078431
 ---
 
