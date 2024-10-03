@@ -201,7 +201,7 @@ layout: default
               
               {% if linkISBN13 != "" %}
                 {% if backlinksSwitch == false %}
-                  Made me think about:<br/>
+                  Made me think about:
                 {% endif %}
                 
                 {% assign backlinksSwitch = true %}
@@ -565,13 +565,14 @@ layout: default
                 
                 {% if linkISBN13 != "" %}
                   {% if backlinksSwitch == false %}
-                    Made me think about:<br/>
+                    Made me think about:
                   {% endif %}
                   
                   {% assign backlinksSwitch = true %}
+                  <ul>
                   {%- for b in site.data.reading -%}
                     {% if b.ISBN13 == linkISBN13 %}
-                    - <a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a></br>
+                    <li><a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a></li>
                     {% endif %}
                   {%- endfor -%} 
                   {% for b in site.data.goodreads %}
@@ -584,10 +585,12 @@ layout: default
                         {% assign yearRead = b.DateAdded | slice: 0,4 %}
                       {%- endif -%}
                       {% assign yearRead = yearRead | times: 1 %}
-                      - <a href="/reading/years/{{ yearRead }}#{{ linkISBN13 }}">{{b.Title}}</a></br>
+                      <li><a href="/reading/years/{{ yearRead }}#{{ linkISBN13 }}">{{b.Title}}</a></li>
                       {% endif %}
                     {%- endif -%}
                   {% endfor %}
+                  </ul>
+                  
                 {% endif %}
 
               {% endfor %}
@@ -701,16 +704,16 @@ layout: default
             {% if linkISBN13 != "" %}
               {% if backlinksSwitch == false %}
                 Made me think about:
-                <br/>
               {% endif %}
 
               {% assign backlinksSwitch = true %}
+              <ul>
               {%- for b in site.data.reading -%}
                 {% if b.ISBN13 == linkISBN13 %}
-                - <a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a></br>
+                <li><a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a></li>
                 {% endif %}
               {%- endfor -%} 
-
+              </ul>
               {% for b in site.data.goodreads %}
                 {% assign isbn2 = b.ISBN13 | remove: '=' | remove: '"' %}
                 {%- if isbn2 and isbn.size == 13 -%}

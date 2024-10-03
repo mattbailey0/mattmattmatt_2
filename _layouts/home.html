@@ -27,7 +27,7 @@ layout: default
         {% assign n = 0 %}
         {%- for post in site.posts -%}
         {%- unless post.categories contains "micro" -%}
-        {% if n < 5 %}
+        {% if n < 10 %}
         {% assign n = n | plus: 1 %}
 
         <li class="post-preview">
@@ -87,7 +87,7 @@ layout: default
                 {%- endif -%}
               {%- endif -%}
             {%- else -%}
-              {{ post.content | truncatewords:50 }}
+              {{ post.content | truncatewords:250 }}
               <br/><br/><a href="{{ post.url | relative_url }}">read more &gt;&gt;</a>
             {%- endif -%}
 
