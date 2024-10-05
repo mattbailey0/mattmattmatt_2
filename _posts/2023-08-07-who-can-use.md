@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Links: Will A.I. Close Off the Internet?"
+title: "Who Can Use? is brilliant."
 date:   2023-08-07 00:00:03 -0500
 categories: micro
 ---

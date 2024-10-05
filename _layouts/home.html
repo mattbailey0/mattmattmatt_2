@@ -26,12 +26,12 @@ layout: default
 
         {% assign n = 0 %}
         {%- for post in site.posts -%}
-        {%- unless post.categories contains "micro" -%}
-        {% if n < 10 %}
+        {%- unless post.categories contains "reading" -%}
+        {% if n < 10 %}  <!-- have to do it this way instead of using liquid's limit: because of filtered post categories :/ -->
         {% assign n = n | plus: 1 %}
 
         <li class="post-preview">
-          {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+          {%- assign date_format = site.minima.date_format | default: "%-d %b, %Y" -%}
           <span class="post-meta">{{ post.date | date: date_format }}</span>
           <h3>
             {%- unless post.categories contains "short" -%}

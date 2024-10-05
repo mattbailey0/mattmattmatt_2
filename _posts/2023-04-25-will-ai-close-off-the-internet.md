@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Links: Will A.I. Close Off the Internet?"
+title: "Will A.I. Close Off the Internet?"
 date:   2023-04-25 00:00:03 -0500
 categories: micro
 ---

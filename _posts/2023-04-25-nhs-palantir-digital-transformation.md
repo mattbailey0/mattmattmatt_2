@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Links: Revealed - 300 reasons why US ‘spy-tech’ firm Palantir processes NHS data"
+title: "Revealed - 300 reasons why US ‘spy-tech’ firm Palantir processes NHS data"
 date:   2023-04-25 00:00:03 -0500
 categories: micro
 ---

@@ -15,9 +15,7 @@ layout: default
     <h1 class="page-heading">{{ page.title }}</h1>
   {%- endif -%}
 
-  Heyy look, it's all my posts by year. 
   {{ content }}
-  <br/><br/>
 
   <!-- SECOND LEVEL NAV -->
 
@@ -55,7 +53,7 @@ layout: default
         
         <!-- IF YEARS -->
         {% if yearFilter and yearFilter != "" and yearFilter != nil %}
-          {%- unless post.categories contains "micro" -%}
+          {%- unless post.categories contains "reading" -%}
             {% assign yearPosted = post.date | date: "%Y" | times: 1 %}
             {% if yearPosted == yearFilter %}
               {% assign addRow = 1 %}

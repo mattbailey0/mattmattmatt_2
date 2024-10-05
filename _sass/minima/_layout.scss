@@ -281,12 +281,17 @@
   @include relative-font-size(1.75);
 }
 
+.post-list-date {
+  text-decoration: underline;
+  font-style: italic;
+}
+
 .post-list {
   margin-left: 0;
   list-style: none;
   > .post-preview {
-
-
+    margin-bottom: 0.5rem;
+    margin-left: 0.25rem;
     > h3 {
     font-size: 24px;
     }
@@ -295,8 +300,8 @@
 }
 
 .post-footer {
-  margin-bottom: $spacing-unit;
-  padding-bottom: $spacing-unit;
+  margin-bottom: $spacing-unit/2;
+  padding-bottom: $spacing-unit/2;
   clear: left;
   border-bottom: 1px solid #e8e8e8;
 }

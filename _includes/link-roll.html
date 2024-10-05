@@ -1,42 +1,26 @@
 <h3>Links + Notes</h3>
 
-  {%- if site.posts.size > 0 -%}
+{%- assign date_format = site.minima.date_format | default: "%-d %b, %Y" -%}
+{% assign d = "first post" %}
 
-
-    <ul class="post-list">
-      {% assign n = 0 %}
-      {%- for post in site.posts -%}
-      {% unless post.categories contains "reading" %}
-      {% if post.categories contains "micro" and n < 15 %}
-        {% assign n = n | plus: 1 %}
+{%- for b in site.data.biblio -%}
+  {% if d != b.date %}
+    {% if d != "first post" %}
+        </ul>  
+      </div>
+      <div class="post-footer"></div>    
+    {% endif %}
+    {% assign d = b.date %}
+    <div class = "post-list-date">{{ d | date: date_format }}</div>
+    <div>
+      <ul class="post-list">
+  {% endif %}
         <li class="post-preview">
-          {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
- 
-          {%- if post.isbn13 -%}
-          {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '.jpg' %}
-          {% assign bkimg = site.static_files | where: "path",bkpath | first %}
-          {% if bkimg %}
-            <img src="{{bkpath}}" class="post-img-hero-reading" />
-          {% else %}
-            {% assign bkpath = '/assets/img/book-covers/' | append: post.isbn13 | append: '.webp' %}
-            {% assign bkimg = site.static_files | where: "path",bkpath | first %}
-            {% if bkimg %}
-              <img src="{{bkpath}}" class="post-img-hero-reading" />
-            {% endif %}
-          {% endif %}
-        {%- endif -%}
-        <span class="post-preview-content-reading">
-          <span class="title">{{ post.date | date: date_format }} - {{ post.title }} {% if post.book-author %}by {{post.book-author}}{% endif %}</span>
-          {{ post.content }} 
-      </span>
+          <div>
+            <a href="{{b.externalLink}}">{{b.note}}</a>
+          </div>
         </li>
-        <li class="post-footer"></li>
-      {%- endif -%}
-      {% endunless %}
-      {%- endfor -%}
-    </ul>
-
-    <div class="button-pink"><a href="/links-and-notes/">more notes &gt;&gt;</a></div>
-  {%- endif -%}
-
-
+{%- endfor -%}
+</ul>  
+</div> 
+<div class="button-pink"><a href="/links-and-notes/">more notes &gt;&gt;</a></div>
