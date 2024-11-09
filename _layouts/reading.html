@@ -297,7 +297,7 @@ layout: default
     {% for ai in authorsIndex %}
       
     <div style="" class="book-author-row" id="{{ ai }}">
-      <h2>{{ ai  }}</h2> 
+      <h2>{{ ai }}</h2> 
 
       {% for b in site.data.reading %}
         {% assign authorsBook = b.Authors | split: "|" %}
@@ -537,8 +537,9 @@ layout: default
                           {% assign authorTitle = author[2] | strip %}
                         {% endif %}
                       {% endif %}
-                      
-                      {% if authorFirstName %}{{ authorFirstName }}&nbsp;{% endif %}{{ authorLastName }}{% if authorTitle and authorTitle != "" %}&nbsp;{{ authorTitle }}{% endif %}{% if aTemp != authors.last %},{% endif %}
+                      <a href="/reading/authors/{{authorLastName | slice: 0,1 }}#{{authorLastName}}, {{authorFirstName}}">
+                        {% if authorFirstName %}{{ authorFirstName }}&nbsp;{% endif %}{{ authorLastName }}{% if authorTitle and authorTitle != "" %}&nbsp;{{ authorTitle }}{% endif %}{% if aTemp != authors.last %},{% endif %}
+                      </a>
                     {% endif %}
                   {% endfor %}
                 {% endif %}
@@ -676,7 +677,9 @@ layout: default
 
           {%- if b.Author -%}
             <br/>
-            {{ b.Author }}
+            <a href="/reading/authors/{{b.AuthorLF | slice: 0,1 }}#{{b.AuthorLF}}">
+              {{ b.Author }}
+            </a>
             {%- if b.AdditionalAuthors -%}
               <br/>
               {{ b.AdditionalAuthors }}
