@@ -40,7 +40,7 @@ layout: default
       {% if rt.filter != titlesFilter %}
         </a>
       {% endif %}
-      {% if rt.display != site.readingTitles.last.display %}  
+      {% if rt.display != site.readingTitles.last.display %}
         |
       {% endif %}
     {% endfor %}
@@ -56,7 +56,7 @@ layout: default
       {% if ra.authorsFilter != authorsFilter %}
         </a>
       {% endif %}
-      {% if ra.displayAuthors != site.readingAuthors.last.displayAuthors %}  
+      {% if ra.displayAuthors != site.readingAuthors.last.displayAuthors %}
         |
       {% endif %}
     {% endfor %}
@@ -89,30 +89,26 @@ layout: default
 
   {% comment %}
   ################## IF TITLES VIEW ##################
-    TODO: 
-    - multiple authors
-    - in authors view, should like back to titles VIEW
-    - make what view is active more obvious in second and third level nav, css
-    - 
+
   {% endcomment %}
-  
+
   {% if titlesFilter and titlesFilter != "" and titlesFilter != nil %}
     {% for b in site.data.reading %}
       {% assign titleFirstLetter = b.Title | slice: 0,1 | downcase %}
       {% for tf in titlesFilter %}
         {% if titleFirstLetter == tf %}
-          {% assign booksByTitle = booksByTitle | append: b.Title | append: '^'  %}  
+          {% assign booksByTitle = booksByTitle | append: b.Title | append: '^'  %}
           {% assign booksByTitle = booksByTitle | append: b.Authors | append: '^'  %}
-          {% assign booksByTitle = booksByTitle | append: b.ISBN13 | append: '^'  %}  
-          {% assign booksByTitle = booksByTitle | append: b.MyRating | append: '^'  %}  
+          {% assign booksByTitle = booksByTitle | append: b.ISBN13 | append: '^'  %}
+          {% assign booksByTitle = booksByTitle | append: b.MyRating | append: '^'  %}
           {% assign booksByTitle = booksByTitle | append: b.Publisher | append: '^'  %}
-          {% assign booksByTitle = booksByTitle | append: b.DateRead | append: '^'  %}  
+          {% assign booksByTitle = booksByTitle | append: b.DateRead | append: '^'  %}
           {% assign booksByTitle = booksByTitle | append: b.externalLink | append: '^'  %}
           {% assign authorLastInitial = b.Authors | slice: 0,1 | downcase %}
           {% assign booksByTitle = booksByTitle | append: authorLastInitial %}
           {% assign booksByTitle = booksByTitle | append: '~'  %}
         {% endif %}
-      {% endfor %}  
+      {% endfor %}
     {% endfor %}
 
     {% for b in site.data.goodreads %}
@@ -120,22 +116,22 @@ layout: default
         {% assign titleFirstLetter = b.Title | slice: 0,1 | downcase %}
         {% for tf in titlesFilter %}
           {% if titleFirstLetter == tf %}
-            {% assign booksByTitle = booksByTitle | append: b.Title | append: '^'  %}  
-            {% assign booksByTitle = booksByTitle | append: b.AuthorLF | append: '^'  %}  
+            {% assign booksByTitle = booksByTitle | append: b.Title | append: '^'  %}
+            {% assign booksByTitle = booksByTitle | append: b.AuthorLF | append: '^'  %}
             {% assign booksByTitle = booksByTitle | append: b.ISBN13 | append: '^'  %}
-            {% assign booksByTitle = booksByTitle | append: b.MyRating | append: '^'  %}  
+            {% assign booksByTitle = booksByTitle | append: b.MyRating | append: '^'  %}
             {% assign booksByTitle = booksByTitle | append: b.Publisher | append: '^'  %}
-            {% assign booksByTitle = booksByTitle | append: b.DateRead | append: '^'  %}  
-            {% assign booksByTitle = booksByTitle | append: "" | append: '^'  %} 
+            {% assign booksByTitle = booksByTitle | append: b.DateRead | append: '^'  %}
+            {% assign booksByTitle = booksByTitle | append: "" | append: '^'  %}
             {% assign authorLastInitial =  b.AuthorLF | slice: 0,1 | downcase %}
             {% assign booksByTitle = booksByTitle | append: authorLastInitial %}
-            {% assign booksByTitle = booksByTitle | append: '~'  %}   
+            {% assign booksByTitle = booksByTitle | append: '~'  %}
           {% endif %}
-        {% endfor %}  
+        {% endfor %}
       {% endif %}
     {% endfor %}
 
-    {% assign booksByTitle = booksByTitle | split: "~" %} 
+    {% assign booksByTitle = booksByTitle | split: "~" %}
     {% assign booksByTitle = booksByTitle | sort_natural %}
 
 
@@ -166,21 +162,13 @@ layout: default
           {% endif %}
         </span>
         <span class="book-title">
-          <p>          
-            {% if book[6] %}
-              <a href="{{b[6]}}">
-            {% elsif isbn %}
-              <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
-            {% endif %}
-              {{book[0]}}
-            {% if isbn or book[6] %}
-              </a>
-            {% endif %}
+          <p>
+            {{book[0]}}
             <br/>
             <a href = "/reading/authors/{{book[7] }}/#{{ book[1] }}">{{ book[1] }}</a>
           </p>
 
-          {% assign rpost = site.posts | where: "isbn13", isbn | first %} 
+          {% assign rpost = site.posts | where: "isbn13", isbn | first %}
           {%- if rpost -%}
           <p>
             {{ rpost.content | strip_html | truncatewords: 50 }}
@@ -197,71 +185,79 @@ layout: default
                 {% assign linkISBN13 = l.ISBN13a %}
               {% else %}
                 {% assign linkISBN13 = "" %}
-              {% endif %} 
-              
+              {% endif %}
+
               {% if linkISBN13 != "" %}
                 {% if backlinksSwitch == false %}
                   Made me think about:
                 {% endif %}
-                
                 {% assign backlinksSwitch = true %}
-                {%- for b in site.data.reading -%}
+
+
+                {% for b in site.data.reading %}
                   {% if b.ISBN13 == linkISBN13 %}
-                  - <a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a></br>
+                    <br/>- <a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a>
                   {% endif %}
-                {%- endfor -%} 
+                {% endfor %}
                 {% for b in site.data.goodreads %}
-                  {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
-                  {%- if isbn and isbn.size == 13 -%}
-                    {% if isbn == linkISBN13 %}
+                  {% assign isbnTemp = b.ISBN13 | remove: '=' | remove: '"' %}
+                  {%- if isbnTemp and isbnTemp.size == 13 -%}
+                    {% if isbnTemp == linkISBN13 %}
                     {%- if b.DateRead -%}
                       {% assign yearRead = b.DateRead | slice: 0,4 %}
                         {%- else -%}
                       {% assign yearRead = b.DateAdded | slice: 0,4 %}
                     {%- endif -%}
                     {% assign yearRead = yearRead | times: 1 %}
-                    - <a href="/reading/years/{{ yearRead }}#{{ linkISBN13 }}">{{b.Title}}</a></br>
+                    <br/>- <a href="/reading/years/{{ yearRead }}#{{ linkISBN13 }}">{{b.Title}}</a>
                     {% endif %}
                   {%- endif -%}
                 {% endfor %}
               {% endif %}
-    
+
+
             {% endfor %}
-          </p>    
-          
+          </p>
+          {% if isbn %}
+          <p>
+            {% if book[6] != "" %}
+              <a href="{{book[6]}}" class="external">more context about this book</a><br/>
+            {% endif %}
+            <a href="https://search.worldcat.org/search?q={{ isbn | escape }}" class="external">worldcat</a> | <a href="https://bookshop.org/books?keywords={{ isbn | escape }}" class="external">bookshop</a> | isbn {{ isbn }}
+          </p>
+          {% endif %}
 
         </span>
-      
+
         <span class="book-rating">
           {{ book[5] | date: "%d %b %Y" }}
-          <br/>
-          {% if book[3] and book[3] != "" and book[3] != nil %} 
+          <p>
+          {% if book[3] and book[3] != "" and book[3] != nil %}
             {% assign bkrating = book[3] | times: 1 %}
             {% for n in (1..book[3]) %}
               &#10026;&nbsp;
             {% endfor %}
           {% endif %}
-          <br/>
-          
+          </p>
         </span>
       </div>
     {% endfor %}
 
-  
 
 
 
 
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
     {% comment %}
     ################## IF AUTHORS VIEW ##################
     {% endcomment %}
-    
+
   {% elsif authorsFilter and authorsFilter != "" and authorsFilter != nil %}
 
       {%- for b in site.data.reading -%}
@@ -271,7 +267,7 @@ layout: default
             {% assign authorLastInitial = a | slice: 0,1 | downcase %}
             {% for af in authorsFilter %}
               {% if authorLastInitial == af  %}
-                {% assign authorsIndex = authorsIndex | append: a | append: '|'  %}  
+                {% assign authorsIndex = authorsIndex | append: a | append: '|'  %}
               {% endif %}
             {% endfor %}
           {% endfor %}
@@ -284,20 +280,20 @@ layout: default
             {% for af in authorsFilter %}
               {% if authorLastInitial == af %}
                 {% assign aLF = b.AuthorLF %}
-                {% assign authorsIndex = authorsIndex | append: aLF | append: "|"  %}  
+                {% assign authorsIndex = authorsIndex | append: aLF | append: "|"  %}
               {% endif %}
             {% endfor %}
         {% endif %}
       {% endfor %}
 
-      
-      {% assign authorsIndex = authorsIndex | split: "|" %} 
+
+      {% assign authorsIndex = authorsIndex | split: "|" %}
       {% assign authorsIndex = authorsIndex | sort_natural | uniq %}
 
     {% for ai in authorsIndex %}
-      
+
     <div style="" class="book-author-row" id="{{ ai }}">
-      <h2>{{ ai }}</h2> 
+      <h2>{{ ai }}</h2>
 
       {% for b in site.data.reading %}
         {% assign authorsBook = b.Authors | split: "|" %}
@@ -327,54 +323,95 @@ layout: default
                 {%- endif -%}
               </span>
               <span class="book-title">
-                {%- if b.externalLink -%}
-                  <a href="{{b.externalLink}}">
-                {%- elsif isbn -%}
-                  <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
-                {%- endif -%}
-                {{ b.Title }}
-                {%- if isbn or b.externalLink -%}
-                  </a>
-                {%- endif -%}
-
-                {%- if b.Authors -%}
-                <br/>
-              
-                {% assign authors = b.Authors | split: "|" %}
-  
-                {% if authors.size > 1 %}
-                w/
-                  {% for aTemp in authors %}
-                    {% assign authorFirstName = "" %}
-                    {% assign authorLastName = "" %}
-                    {% assign authorTitle = "" %}
-                    {% if aTemp != ai %}
-                      {% assign author = aTemp | split: "," %}
-                      
-                      
-                      {% assign authorLastName = author[0] | strip %}
-                      {% assign numNames = author.size | minus: 1 %} 
-                      {% if numNames > 0 %}
-                        {% assign authorFirstName = author[1] | strip %}
-                        {% if numNames > 1 %}
-                          {% assign authorTitle = author[2] | strip %}
-                        {% endif %}
-                      {% endif %}
-                      
-                      {% if authorFirstName %}{{ authorFirstName }}&nbsp;{% endif %}{{ authorLastName }}{% if authorTitle and authorTitle != "" %}&nbsp;{{ authorTitle }}{% endif %}{% if aTemp != authors.last %},{% endif %}
-                    {% endif %}
-                  {% endfor %}
-                {% endif %}
-              {%- endif -%}
-
-              {% assign rpost = site.posts | where: "isbn13", isbn | first %}
-              {%- if rpost -%}
                 <p>
+                  {{ b.Title }}
+                  {%- if b.Authors -%}
+                  {% assign authors = b.Authors | split: "|" %}
+
+                  {% if authors.size > 1 %}
                   <br/>
-                  {{ rpost.content | strip_html | truncatewords: 25 }}
-                  <a href="{{ rpost.url }}">more &gt;&gt;</a>&nbsp;
-                </p>
-              {%- endif -%}
+                  w/
+                    {% for aTemp in authors %}
+                      {% assign authorFirstName = "" %}
+                      {% assign authorLastName = "" %}
+                      {% assign authorTitle = "" %}
+                      {% if aTemp != ai %}
+                        {% assign author = aTemp | split: "," %}
+
+
+                        {% assign authorLastName = author[0] | strip %}
+                        {% assign numNames = author.size | minus: 1 %}
+                        {% if numNames > 0 %}
+                          {% assign authorFirstName = author[1] | strip %}
+                          {% if numNames > 1 %}
+                            {% assign authorTitle = author[2] | strip %}
+                          {% endif %}
+                        {% endif %}
+
+                        {% if authorFirstName %}{{ authorFirstName }}&nbsp;{% endif %}{{ authorLastName }}{% if authorTitle and authorTitle != "" %}&nbsp;{{ authorTitle }}{% endif %}{% if aTemp != authors.last %},{% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                  <br/>
+                {%- endif -%}
+
+                {% assign rpost = site.posts | where: "isbn13", isbn | first %}
+                {% if rpost %}
+                  <p>
+                    {{ rpost.content | strip_html | truncatewords: 25 }}
+                    <a href="{{ rpost.url }}">more &gt;&gt;</a>&nbsp;
+                  </p>
+                {% endif %}
+              </p>
+              <p>
+                {% assign backlinksSwitch = false %}
+                {% for l in site.data.reading-backlinks %}
+                  {% if l.ISBN13a == b.ISBN13 %}
+                    {% assign linkISBN13 = l.ISBN13b %}
+                  {% elsif l.ISBN13b == b.ISBN13 %}
+                    {% assign linkISBN13 = l.ISBN13a %}
+                  {% else %}
+                    {% assign linkISBN13 = "" %}
+                  {% endif %}
+
+                  {% if linkISBN13 != "" %}
+                    {% if backlinksSwitch == false %}
+                      Made me think about:
+                    {% endif %}
+
+                    {% assign backlinksSwitch = true %}
+                    {%- for b in site.data.reading -%}
+                      {% if b.ISBN13 == linkISBN13 %}
+                      <br/>- <a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a>
+                      {% endif %}
+                    {%- endfor -%}
+                    {% for b in site.data.goodreads %}
+                      {% assign isbnTemp = b.ISBN13 | remove: '=' | remove: '"' %}
+                      {%- if isbnTemp and isbnTemp.size == 13 -%}
+                        {% if isbnTemp == linkISBN13 %}
+                        {%- if b.DateRead -%}
+                          {% assign yearRead = b.DateRead | slice: 0,4 %}
+                            {%- else -%}
+                          {% assign yearRead = b.DateAdded | slice: 0,4 %}
+                        {%- endif -%}
+                        {% assign yearRead = yearRead | times: 1 %}
+                        <br/>- <a href="/reading/years/{{ yearRead }}#{{ linkISBN13 }}">{{b.Title}}</a>
+                        {% endif %}
+                      {%- endif -%}
+                    {% endfor %}
+
+                  {% endif %}
+
+                {% endfor %}
+              </p>
+
+
+              <p>
+                {% if b.externalLink %}
+                  <a href="{{b.externalLink}}" class="external">more context about this book</a><br/>
+                {% endif %}
+                <a href="https://search.worldcat.org/search?q={{ isbn | escape }}" class="external">worldcat</a> | <a href="https://bookshop.org/books?keywords={{ isbn | escape }}" class="external">bookshop</a> | isbn {{ isbn }}
+              </p>
               </span>
               <span class="book-rating">
                 {{ b.DateRead | date: "%B %d %Y" }}
@@ -418,28 +455,69 @@ layout: default
             {%- endif -%}
           </span>
           <span class="book-title">
-            {%- if isbn -%}
-              <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
-            {%- endif -%}
-            {{ b.Title }}
-            {%- if isbn -%}
-              </a>
+            <p>
+              {{ b.Title }}<br/>
+
+            {%- if b.AdditionalAuthors -%}
+              w/ {{ b.AdditionalAuthors }}<br/>
             {%- endif -%}
 
-            {%- if b.Author -%}
-              <br/>
-              {{ b.Author }}
-              {%- if b.AdditionalAuthors -%}
-                <br/>
-                {{ b.AdditionalAuthors }}
-              {%- endif -%}
-            {%- endif -%}
             {%- if b.MyReview -%}
               <p>
-                <br/>
                 {{ b.MyReview }}
+                <br/>
               </p>
             {%- endif -%}
+            </p>
+
+            <p>
+              {% assign backlinksSwitch = false %}
+              {% for l in site.data.reading-backlinks %}
+                {% if l.ISBN13a == b.ISBN13 %}
+                  {% assign linkISBN13 = l.ISBN13b %}
+                {% elsif l.ISBN13b == b.ISBN13 %}
+                  {% assign linkISBN13 = l.ISBN13a %}
+                {% else %}
+                  {% assign linkISBN13 = "" %}
+                {% endif %}
+
+                {% if linkISBN13 != "" %}
+                  {% if backlinksSwitch == false %}
+                    Made me think about:
+                  {% endif %}
+
+                  {% assign backlinksSwitch = true %}
+
+                  {%- for b in site.data.reading -%}
+                    {% if b.ISBN13 == linkISBN13 %}
+                    <br/>- <a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a>
+                    {% endif %}
+                  {%- endfor -%}
+                  {% for b in site.data.goodreads %}
+                    {% assign isbnTemp = b.ISBN13 | remove: '=' | remove: '"' %}
+                    {%- if isbnTemp and isbnTemp.size == 13 -%}
+                      {% if isbnTemp == linkISBN13 %}
+                      {%- if b.DateRead -%}
+                        {% assign yearRead = b.DateRead | slice: 0,4 %}
+                          {%- else -%}
+                        {% assign yearRead = b.DateAdded | slice: 0,4 %}
+                      {%- endif -%}
+                      {% assign yearRead = yearRead | times: 1 %}
+                      <br/>- <a href="/reading/years/{{ yearRead }}#{{ linkISBN13 }}">{{b.Title}}</a>
+                      {% endif %}
+                    {%- endif -%}
+                  {% endfor %}
+
+                {% endif %}
+
+              {% endfor %}
+            </p>
+
+
+            <p>
+              <a href="https://search.worldcat.org/search?q={{ isbn | escape }}" class="external">worldcat</a> | <a href="https://bookshop.org/books?keywords={{ isbn | escape }}" class="external">bookshop</a> | isbn {{ isbn }}
+            </p>
+
           </span>
           <span class="book-rating">
             {%- if b.DateRead -%}
@@ -468,7 +546,7 @@ layout: default
     ################## IF YEARS VIEW ##################
     {% endcomment %}
   {% elsif yearFilter and yearFilter != "" and yearFilter != nil %}
-  
+
     {%- for b in site.data.reading -%}
       {% if yearFilter and yearFilter != "" and yearFilter != nil %}
         {% assign yearRead = b.DateRead | slice: 0,4 | times: 1 %}
@@ -505,19 +583,11 @@ layout: default
           </span>
           <span class="book-title">
             <p>
-              {%- if b.externalLink -%}
-                <a href="{{b.externalLink}}">
-              {%- elsif isbn -%}
-                <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
-              {%- endif -%}
               {{ b.Title }}
-              {%- if isbn or b.externalLink -%}
-                </a>
-              {%- endif -%}
 
               {%- if b.Authors -%}
                 <br/>
-              
+
                 {% assign authors = b.Authors | split: "|" %}
 
                 {% if authors.size > 0 %}
@@ -527,10 +597,10 @@ layout: default
                     {% assign authorTitle = "" %}
                     {% if aTemp != ai %}
                       {% assign author = aTemp | split: "," %}
-                      
-                      
+
+
                       {% assign authorLastName = author[0] | strip %}
-                      {% assign numNames = author.size | minus: 1 %} 
+                      {% assign numNames = author.size | minus: 1 %}
                       {% if numNames > 0 %}
                         {% assign authorFirstName = author[1] | strip %}
                         {% if numNames > 1 %}
@@ -562,44 +632,48 @@ layout: default
                   {% assign linkISBN13 = l.ISBN13a %}
                 {% else %}
                   {% assign linkISBN13 = "" %}
-                {% endif %} 
-                
+                {% endif %}
+
                 {% if linkISBN13 != "" %}
                   {% if backlinksSwitch == false %}
                     Made me think about:
                   {% endif %}
-                  
+
                   {% assign backlinksSwitch = true %}
-                  <ul>
+
                   {%- for b in site.data.reading -%}
                     {% if b.ISBN13 == linkISBN13 %}
-                    <li><a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a></li>
+                    <br/>- <a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a>
                     {% endif %}
-                  {%- endfor -%} 
+                  {%- endfor -%}
                   {% for b in site.data.goodreads %}
-                    {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
-                    {%- if isbn and isbn.size == 13 -%}
-                      {% if isbn == linkISBN13 %}
+                    {% assign isbnTemp = b.ISBN13 | remove: '=' | remove: '"' %}
+                    {%- if isbnTemp and isbnTemp.size == 13 -%}
+                      {% if isbnTemp == linkISBN13 %}
                       {%- if b.DateRead -%}
                         {% assign yearRead = b.DateRead | slice: 0,4 %}
                           {%- else -%}
                         {% assign yearRead = b.DateAdded | slice: 0,4 %}
                       {%- endif -%}
                       {% assign yearRead = yearRead | times: 1 %}
-                      <li><a href="/reading/years/{{ yearRead }}#{{ linkISBN13 }}">{{b.Title}}</a></li>
+                      <br/>- <a href="/reading/years/{{ yearRead }}#{{ linkISBN13 }}">{{b.Title}}</a>
                       {% endif %}
                     {%- endif -%}
                   {% endfor %}
-                  </ul>
-                  
+
                 {% endif %}
 
               {% endfor %}
-            </p>    
-      
+            </p>
+            <p>
+              {% if b.externalLink %}
+                <a href="{{b.externalLink}}" class="external">more context about this book</a><br/>
+              {% endif %}
+              <a href="https://search.worldcat.org/search?q={{ isbn | escape }}" class="external">worldcat</a> | <a href="https://bookshop.org/books?keywords={{ isbn | escape }}" class="external">bookshop</a> | isbn {{ isbn }}
+            </p>
           </span>
 
-            
+
           <span class="book-rating">
             {{ b.DateRead | date: "%d %b %Y" }}
             <br/>
@@ -667,32 +741,24 @@ layout: default
       </span>
       <span class="book-title">
         <p>
-          {%- if isbn -%}
-            <a href="https://bookshop.org/books?keywords={{ isbn | escape }}">
-          {%- endif -%}
-          {{ b.Title }}
-          {%- if isbn -%}
-            </a>
-          {%- endif -%}
+          {{ b.Title }}<br/>
 
           {%- if b.Author -%}
-            <br/>
             <a href="/reading/authors/{{b.AuthorLF | slice: 0,1 }}#{{b.AuthorLF}}">
-              {{ b.Author }}
+              {{- b.Author -}}
             </a>
             {%- if b.AdditionalAuthors -%}
-              <br/>
-              {{ b.AdditionalAuthors }}
+            , {{ b.AdditionalAuthors }}
             {%- endif -%}
+            <br/>
           {%- endif -%}
           {%- if b.MyReview -%}
             <p>
-              <br/>
               {{ b.MyReview }}
             </p>
           {%- endif -%}
         </p>
-       
+
         <p>
           {% assign backlinksSwitch = false %}
           {% for l in site.data.reading-backlinks %}
@@ -702,7 +768,7 @@ layout: default
               {% assign linkISBN13 = l.ISBN13a %}
             {% else %}
               {% assign linkISBN13 = "" %}
-            {% endif %} 
+            {% endif %}
 
             {% if linkISBN13 != "" %}
               {% if backlinksSwitch == false %}
@@ -710,13 +776,12 @@ layout: default
               {% endif %}
 
               {% assign backlinksSwitch = true %}
-              <ul>
+
               {%- for b in site.data.reading -%}
                 {% if b.ISBN13 == linkISBN13 %}
-                <li><a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a></li>
+                <br/>- <a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a>
                 {% endif %}
-              {%- endfor -%} 
-              </ul>
+              {%- endfor -%}
               {% for b in site.data.goodreads %}
                 {% assign isbn2 = b.ISBN13 | remove: '=' | remove: '"' %}
                 {%- if isbn2 and isbn.size == 13 -%}
@@ -727,15 +792,17 @@ layout: default
                       {% assign yearRead = b.DateAdded | slice: 0,4 %}
                     {%- endif -%}
                     {% assign yearRead = yearRead | times: 1 %}
-                    - <a href="/reading/years/{{ yearRead }}#{{ linkISBN13 }}">{{b.Title}}</a></br>
+                    <br/>- <a href="/reading/years/{{ yearRead }}#{{ linkISBN13 }}">{{b.Title}}</a>
                   {% endif %}
                 {%- endif -%}
               {% endfor %}
             {% endif %}
 
           {% endfor %}
-        </p>  
-
+        </p>
+        <p>
+          <a href="https://search.worldcat.org/search?q={{ isbn | escape }}" class="external">worldcat</a> | <a href="https://bookshop.org/books?keywords={{ isbn | escape }}" class="external">bookshop</a> | isbn {{ isbn }}
+        </p>
       </span>
 
       <span class="book-rating">
