@@ -1,0 +1,112 @@
+
+<div class="book-row" id="{{ isbn }}">
+  <span class="book-cover">
+    {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
+    {%- if isbn and isbn.size == 13 -%}
+      {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '.jpg' %}
+      {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+      {% if bkimg %}
+        <img src="{{bkpath}}" />
+      {% else %}
+        {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '.webp' %}
+        {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+        {% if bkimg %}
+          <img src="{{bkpath}}" />
+        {% else %}
+          {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '.png' %}
+          {% assign bkimg = site.static_files | where: "path",bkpath | first %}
+          {% if bkimg %}
+            <img src="{{bkpath}}" />
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {%- endif -%}
+  </span>
+  <span class="book-title">
+    <p>
+      {{ b.Title }}
+
+      {%- if b.Authors -%}
+        <br/>
+
+        {% assign authors = b.Authors | split: "|" %}
+
+        {% if authors.size > 0 %}
+          {% for aTemp in authors %}
+            {% assign authorFirstName = "" %}
+            {% assign authorLastName = "" %}
+            {% assign authorTitle = "" %}
+            {% if aTemp != ai %}
+              {% assign author = aTemp | split: "," %}
+
+
+              {% assign authorLastName = author[0] | strip %}
+              {% assign numNames = author.size | minus: 1 %}
+              {% if numNames > 0 %}
+                {% assign authorFirstName = author[1] | strip %}
+                {% if numNames > 1 %}
+                  {% assign authorTitle = author[2] | strip %}
+                {% endif %}
+              {% endif %}
+              <a href="/reading/authors/{{authorLastName | slice: 0,1 }}#{{authorLastName}}, {{authorFirstName}}">
+                {% if authorFirstName %}{{ authorFirstName }}&nbsp;{% endif %}{{ authorLastName }}{% if authorTitle and authorTitle != "" %}&nbsp;{{ authorTitle }}{% endif %}{% if aTemp != authors.last %},{% endif %}
+              </a>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {%- endif -%}
+    </p>
+    {% assign rpost = site.posts | where: "isbn13", isbn | first %}
+    {%- if rpost -%}
+      <p>
+        {{ rpost.content | strip_html | truncatewords: 50 }}
+        <a href="{{ rpost.url }}">more &gt;&gt;</a>&nbsp;
+      </p>
+    {%- endif -%}
+
+    <p>
+      {% assign backlinksSwitch = false %}
+      {% for l in site.data.reading-backlinks %}
+        {% if l.ISBN13a == b.ISBN13 %}
+          {% assign linkISBN13 = l.ISBN13b %}
+        {% elsif l.ISBN13b == b.ISBN13 %}
+          {% assign linkISBN13 = l.ISBN13a %}
+        {% else %}
+          {% assign linkISBN13 = "" %}
+        {% endif %}
+
+        {% if linkISBN13 != "" %}
+          {% if backlinksSwitch == false %}
+            Made me think about:
+          {% endif %}
+
+          {% assign backlinksSwitch = true %}
+
+          {%- for b in site.data.reading -%}
+            {% if b.ISBN13 == linkISBN13 %}
+            <br/>- <a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a>
+            {% endif %}
+          {%- endfor -%}
+
+
+        {% endif %}
+
+      {% endfor %}
+    </p>
+    <p>
+      {% if b.externalLink %}
+        <a href="{{b.externalLink}}" class="external">more context about this book</a><br/>
+      {% endif %}
+      <a href="https://search.worldcat.org/search?q={{ isbn | escape }}" class="external">worldcat</a> | <a href="https://bookshop.org/books?keywords={{ isbn | escape }}" class="external">bookshop</a> | ### LIBBY ###
+    </p>
+  </span>
+
+
+  <span class="book-rating">
+    {{ b.DateRead | date: "%d %b %Y" }}
+    <br/>
+    {%- for r in (1..b.MyRating) -%}
+      &#10026;&nbsp;
+    {%- endfor -%}
+  </span>
+</div>
