@@ -26,11 +26,11 @@ window.addEventListener("load", () => {
       "<div class=\"reading-search-row\" id=\"" + record.ISBN13 + "\">" +
         "<span class=\"book-title\">" +
           "<p>" +
-            "<a href = \"/reading/titles/" + record.Title[0] + "/#" + record.ISBN13+ "\">" +
+            "<a href = \"/reading/titles/" + record.Title[0].toLowerCase() + "#" + record.ISBN13+ "\">" +
               record.Title +
             "</a>" +
             " -- " +
-            "<a href = \"/reading/authors/" + record.Authors[0] + "/#" + record.Authors + "\">" +
+            "<a href = \"/reading/authors/" + record.Authors[0].toLowerCase() + "#" + record.Authors + "\">" +
               record.Authors +
             "</a>" +
           "</p>" +
