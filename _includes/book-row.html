@@ -97,7 +97,7 @@
       {% if b.externalLink %}
         <a href="{{b.externalLink}}" class="external">more context about this book</a><br/>
       {% endif %}
-      <a href="https://search.worldcat.org/search?q={{ isbn | escape }}" class="external">worldcat</a> | <a href="https://bookshop.org/books?keywords={{ isbn | escape }}" class="external">bookshop</a>
+      <a href="https://search.worldcat.org/search?q={{ isbn | escape }}" class="external">worldcat</a> | <a href="https://bookshop.org/books?keywords={{ isbn | escape }}" class="external">bookshop</a> | {{ isbn }} 
     </p>
   </span>
 
