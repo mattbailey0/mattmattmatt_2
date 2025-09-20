@@ -56,16 +56,38 @@
         {% endif %}
       {%- endif -%}
     </p>
+
+    <p>
+      {{ b.Publisher }}
+      <br/>
+      isbn {{ isbn }}
+      <br/>
+      <a href="https://search.worldcat.org/search?q={{ isbn | escape }}" class="external">worldcat</a> | <a href="https://bookshop.org/books?keywords={{ isbn | escape }}" class="external">bookshop</a>
+      <br/>
+      {% if b.externalLink %}
+        <br/><a href="{{b.externalLink}}" class="external">more info</a>
+      {% endif %}
+    </p>
+  </span>
+
+
+  <span class="book-rating">
+    finished {{ b.DateRead | date: "%d %b %Y" }}
+    <br/>
+
+
     {% assign rpost = site.posts | where: "isbn13", isbn | first %}
     {%- if rpost -%}
+      <br/>
       <p>
+
         {{ rpost.content | strip_html | truncatewords: 50 }}
         <a href="{{ rpost.url }}">more &gt;&gt;</a>&nbsp;
       </p>
     {%- endif -%}
-
     <p>
       {% assign backlinksSwitch = false %}
+
       {% for l in site.data.reading-backlinks %}
         {% if l.ISBN13a == b.ISBN13 %}
           {% assign linkISBN13 = l.ISBN13b %}
@@ -76,37 +98,25 @@
         {% endif %}
 
         {% if linkISBN13 != "" %}
-          {% if backlinksSwitch == false %}
-            Made me think about:
-          {% endif %}
+         {% if backlinksSwitch == false %}
+          <p class="backlinksHeader">Made me think about:</p>
+          <ul>
+         {% endif %}
 
-          {% assign backlinksSwitch = true %}
+         {% assign backlinksSwitch = true %}
 
-          {%- for b in site.data.reading -%}
-            {% if b.ISBN13 == linkISBN13 %}
-            <br/>- <a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a>
-            {% endif %}
-          {%- endfor -%}
+         {%- for b in site.data.reading -%}
+           {% if b.ISBN13 == linkISBN13 %}
+           <li><a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a></li>
+           {% endif %}
+         {%- endfor -%}
 
 
-        {% endif %}
+       {% endif %}
+
 
       {% endfor %}
+         </ul>
     </p>
-    <p>
-      {% if b.externalLink %}
-        <a href="{{b.externalLink}}" class="external">more context about this book</a><br/>
-      {% endif %}
-      <a href="https://search.worldcat.org/search?q={{ isbn | escape }}" class="external">worldcat</a> | <a href="https://bookshop.org/books?keywords={{ isbn | escape }}" class="external">bookshop</a> | {{ isbn }} 
-    </p>
-  </span>
-
-
-  <span class="book-rating">
-    {{ b.DateRead | date: "%d %b %Y" }}
-    <br/>
-    {%- for r in (1..b.MyRating) -%}
-      &#10026;&nbsp;
-    {%- endfor -%}
   </span>
 </div>
