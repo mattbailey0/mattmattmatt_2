@@ -668,7 +668,7 @@
 .book-author-row {
   border-bottom: 1px solid #e8e8e8;
   .book-row {
-    display: inline-grid;
+    display: inline-flex;
     grid-template-columns: 1fr 2fr 3fr;
     grid-gap: 5px;
     padding: 0px 0px 30px 0px;
@@ -677,8 +677,25 @@
     .book-cover img {
     max-width: 67%;
     }
+
+    // Use media queries like this:
+    // @include media-query($on-palm) {
+    //   .wrapper {
+    //     padding-right: $spacing-unit / 2;
+    //     padding-left: $spacing-unit / 2;
+    //   }
+    // }
+    @include media-query($on-palm) {
+      background: black;
+      font-size: 1000%;
+    }
   }
+
 }
+
+
+
+
 
 .book-rows-wrapper {
   display: inline-grid;
