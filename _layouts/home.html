@@ -11,15 +11,6 @@ layout: default
 
 <div class="home with-link-roll">
 
-
-  <div class="home-side">
-
-  
-    {%- include link-roll.html -%}
-  </div>
-
-
-
   <div class="home-main">
     {%- if site.posts.size > 0 -%}
       <ul class="post-list">
@@ -72,7 +63,7 @@ layout: default
                 <img src="{{bkpath}}" class="post-img-hero-reading" />
               {% endif %}
             {% endif %}
-          
+
           {%- endif -%}
           <span>
             {%- if post.categories contains "short" -%}
@@ -104,6 +95,10 @@ layout: default
 
     {%- endif -%}
 
+  </div>
+  
+  <div class="home-side">
+    {%- include link-roll.html -%}
   </div>
 
 </div>
