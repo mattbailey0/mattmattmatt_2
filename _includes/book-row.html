@@ -110,13 +110,12 @@
            <li><a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a></li>
            {% endif %}
          {%- endfor -%}
+        {% endif %}
 
+       {% endfor %}
 
-       {% endif %}
+        </ul>
+      </p>
 
-
-      {% endfor %}
-         </ul>
-    </p>
   </span>
 </div>
