@@ -33,3 +33,9 @@ gem "webrick", "~> 1.7"
 
 
 gem "rss"
+
+gem "csv"
+
+gem "base64"
+
+gem "bigdecimal"
