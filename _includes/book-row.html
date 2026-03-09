@@ -48,7 +48,7 @@
                   {% assign authorTitle = author[2] | strip %}
                 {% endif %}
               {% endif %}
-              <a href="/reading/authors/{{authorLastName | slice: 0,1 }}#{{authorLastName}}, {{authorFirstName}}">
+              <a href="/reading/authors/{{authorLastName | slice: 0,1 | downcase }}#{{authorLastName}}, {{authorFirstName}}">
                 {% if authorFirstName %}{{ authorFirstName }}&nbsp;{% endif %}{{ authorLastName }}{% if authorTitle and authorTitle != "" %}&nbsp;{{ authorTitle }}{% endif %}{% if aTemp != authors.last %},{% endif %}
               </a>
             {% endif %}
