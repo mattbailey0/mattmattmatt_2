@@ -22,11 +22,15 @@ window.addEventListener("load", () => {
   function getBookRow(record){
     let dateRead = new Date(record.DateRead);
     let monthRead = dateRead.toLocaleString('default', { month: 'short' });
+    let titlePath = record.Title[0].toLowerCase();
+    if (!isNaN(+titlePath)){
+      titlePath = "0-9";
+    }
     return "" +
       "<div class=\"reading-search-row\" id=\"" + record.ISBN13 + "\">" +
         "<span class=\"book-title\">" +
           "<p>" +
-            "<a href = \"/reading/titles/" + record.Title[0].toLowerCase() + "#" + record.ISBN13+ "\">" +
+            "<a href = \"/reading/titles/" + titlePath + "#" + record.ISBN13+ "\">" +
               record.Title +
             "</a>" +
             " -- " +
