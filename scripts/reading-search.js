@@ -27,10 +27,10 @@ window.addEventListener("load", () => {
       titlePath = "0-9";
     }
     return "" +
-      "<div class=\"reading-search-row\" id=\"" + record.ISBN13 + "\">" +
+      "<div class=\"reading-search-row\" id=\"" + record.UUID + "\">" +
         "<span class=\"book-title\">" +
           "<p>" +
-            "<a href = \"/reading/titles/" + titlePath + "#" + record.ISBN13+ "\">" +
+            "<a href = \"/reading/titles/" + titlePath + "#" + record.UUID+ "\">" +
               record.Title +
             "</a>" +
             " -- " +

@@ -1,19 +1,19 @@
 
-<div class="book-row" id="{{ isbn }}">
+{% assign uuid = b.UUID | remove: '=' | remove: '"' %}
+<div class="book-row" id="{{ uuid }}">
   <span class="book-cover">
-    {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
-    {%- if isbn and isbn.size == 13 -%}
-      {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '.jpg' %}
+    {%- if uuid and uuid.size > 0 -%}
+      {% assign bkpath = '/assets/img/book-covers/' | append: uuid | append: '.jpg' %}
       {% assign bkimg = site.static_files | where: "path",bkpath | first %}
       {% if bkimg %}
         <img src="{{bkpath}}" />
       {% else %}
-        {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '.webp' %}
+        {% assign bkpath = '/assets/img/book-covers/' | append: uuid | append: '.webp' %}
         {% assign bkimg = site.static_files | where: "path",bkpath | first %}
         {% if bkimg %}
           <img src="{{bkpath}}" />
         {% else %}
-          {% assign bkpath = '/assets/img/book-covers/' | append: isbn | append: '.png' %}
+          {% assign bkpath = '/assets/img/book-covers/' | append: uuid | append: '.png' %}
           {% assign bkimg = site.static_files | where: "path",bkpath | first %}
           {% if bkimg %}
             <img src="{{bkpath}}" />
@@ -60,9 +60,10 @@
     <p>
       {{ b.Publisher }}
       <br/>
+      {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
       isbn {{ isbn }}
       <br/>
-      <a href="https://search.worldcat.org/search?q={{ isbn | escape }}" class="external">worldcat</a> | <a href="https://bookshop.org/books?keywords={{ isbn | escape }}" class="external">bookshop</a>
+      <a href="https://search.worldcat.org/search?q={{ b.Title | escape }} {{ b.Authors | escape }}" class="external">worldcat</a> | <a href="https://bookshop.org/beta-search?keywords={{ b.Title | escape }} {{ b.Authors | escape }}" class="external">bookshop</a>
       <br/>
       {% if b.externalLink %}
         <br/><a href="{{b.externalLink}}" class="external">more info</a>
@@ -107,7 +108,7 @@
 
          {%- for b in site.data.reading -%}
            {% if b.ISBN13 == linkISBN13 %}
-           <li><a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ linkISBN13 }}">{{b.Title}}</a></li>
+           <li><a href="/reading/years/{{b.DateRead | date: '%Y' }}#{{ b.UUID }}">{{b.Title}}</a></li>
            {% endif %}
          {%- endfor -%}
         {% endif %}

@@ -22,7 +22,7 @@ layout: default
     <h1 class="page-heading">{{ page.title }}</h1>
   {%- endif -%}
 
-  Books: on balance, I'm for them. These are most of the ones I've read since 2007 or so. 
+  Books: on balance, I'm for them. These are most of the ones I've read since 2007 or so.
   {{ content }}
 
   <!-- SECOND LEVEL NAV -->
@@ -146,11 +146,9 @@ layout: default
 
         {% assign booksByTitle = site.data.reading | sort_natural %}
         {% for b in booksByTitle %}
-
           {% assign titleFirstLetter = b.Title | slice: 0,1 | downcase %}
             {% for tf in titlesFilter %}
               {% if titleFirstLetter == tf %}
-                {% assign isbn = b.ISBN13 | remove: '=' | remove: '"' %}
                 {% include book-row.html %}
               {% endif %}
             {% endfor %}
